@@ -5,25 +5,30 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to my integration project!\nType a data type to learn more about it.");
-		DisplayMenu();	
+		System.out.println("Welcome to my integration project!");
+		PromptUser();
 	}
 	
-	public static String PromptUser() {
-		
-		return "uh";
+	public static void PromptUser() {
+		System.out.println("Type a data type to learn more about it.");
+		Scanner iostream = new Scanner(System.in);
+		String UserInput = iostream.nextLine();
+		DisplayMenu(UserInput);
+		iostream.close();
 	}
 	
-	public static void DisplayMenu() {
-		String response = "";
-		switch(choice.toLowerCase()) {
+	public static void DisplayMenu(String response) {
+		System.out.println("Debug: Recieved " + response);
+		switch(response.toLowerCase()) {
 		case "string": response = "you typed string";
 		case "int": response = "you typed int";
 		case "double": response = "you typed double";
 		case "float": response = "you typed float";
 		case "boolean": response = "you typed boolean";
-		default: response = "I have no idea what a " + choice + " is...";
+		default: response = "I have no idea what a \"" + response + "\" is...";
 		}
+		System.out.println(response);
+		PromptUser();
 	}
 
 }
