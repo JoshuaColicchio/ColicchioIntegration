@@ -10,7 +10,10 @@ public class Main {
 	}
 	
 	public static void PromptUser() {
-		System.out.println("Type a data type to learn more about it.");
+		// The "final" keyword makes it so the program cannot change the value of the variable.
+		// IE: If I typed PromptMessage = "some new message", the compiler would throw an error.
+		final String PROMPTMSG = "Type a data type to learn more about it. Type \"Options\" for available data types";
+		System.out.println(PROMPTMSG);
 		Scanner iostream = new Scanner(System.in);
 		String UserInput = iostream.nextLine();
 		DisplayMenu(UserInput);
@@ -24,6 +27,7 @@ public class Main {
 			case "double": DisplayData(2); break;
 			case "float": DisplayData(3); break;
 			case "boolean": DisplayData(4); break;
+			case "options": DisplayData(999); break;
 			default: 
 				System.out.println("I have no idea what a \"" + response + "\" is..."); 
 				PromptUser(); 
@@ -31,15 +35,47 @@ public class Main {
 		}
 	}
 	
-	private static void DisplayData(int TypeId) {
-		switch (TypeId) {
-			case 0: System.out.println("A String is a collection of chars."); break; // string
-			case 1: System.out.println("An int is a whole number."); break; // int
-			case 2: System.out.println("A double is a 64-bit number with a fractional element."); break; // double
-			case 3: System.out.println("A float is a 32-bit number with a fractional element."); break; // float
-			case 4: System.out.println("A boolean is a true / false statement."); break; // bool
+	private static void DisplayData(int i) {
+		switch (i) {
+			case 0:  // string
+				System.out.println("A String is a collection of chars."); 
+				DisplayAdditionalInfo(0);
+				break;
+			case 1: // int
+				System.out.println("An int is a whole number."); 
+				break; 
+			case 2: // double
+				System.out.println("A double is a 64-bit number with a fractional element."); 
+				break; 
+			case 3: // float
+				System.out.println("A float is a 32-bit number with a fractional element."); 
+				break; 
+			case 4: // bool
+				System.out.println("A boolean is a true / false statement."); 
+				break; 
+			case 999: // options
+				System.out.println("Available options:\n\tString\n\tInt\n\tDouble\n\tFloat\n\tBoolean\n\tOptions"); 
+				break; 
 		}
-		PromptUser();
+	}
+
+	private static void DisplayAdditionalInfo(int i) {
+		Scanner input = new Scanner(System.in);
+		switch (i) {
+			case 0: // String
+				System.out.println("The String class has methods built in that can be useful.\n"
+						+ "Three such methods are:\n\tJoin\n\tLength\n\ttoLowerCase\n"
+						+ "Please type the name of one of the choices.");
+				String response = input.nextLine();
+				//if (response.toLowerCase().equals("test")) { System.out.println("yep"); }
+				break;
+			case 1: 
+				break;
+			case 2: 
+				break;
+			default:
+				break;
+		}
 	}
 
 }
