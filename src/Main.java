@@ -12,15 +12,23 @@ public class Main {
 	public static void PromptUser() {
 		// The "final" keyword makes it so the program cannot change the value of the variable.
 		// IE: If I typed PromptMessage = "some new message", the compiler would throw an error.
-		final String PROMPTMSG = "Type a data type to learn more about it. Type \"Options\" for available data types";
-		System.out.println(PROMPTMSG);
+		final String PROMPT_MSG = "Type a data type to learn more about it. Type \"Options\" for available data types";
+		System.out.println(PROMPT_MSG);
 		Scanner iostream = new Scanner(System.in);
 		String UserInput = iostream.nextLine();
-		DisplayMenu(UserInput);
+		// The String.trim method removes any whitespace from the beginning and
+		// end of the string.
+		DisplayMenu(UserInput.trim());
 		iostream.close();
 	}
 	
 	private static void DisplayMenu(String response) {
+		/*
+		 *  The String.toLowerCase method converts a given string to
+		 *  its lower case counterpart.
+		 *  IE - "Hello World".toLowerCase() will return
+		 *  "hello world"
+	 	 */
 		switch(response.toLowerCase()) {
 			case "string": DisplayData(0); break;
 			case "int": DisplayData(1); break;
@@ -29,17 +37,21 @@ public class Main {
 			case "boolean": DisplayData(4); break;
 			case "options": DisplayData(999); break;
 			default: 
-				System.out.println("I have no idea what a \"" + response + "\" is..."); 
+				// The String.toUpperCase method converts a given string into its upper case counterpart.
+				// IE - "Hello World".toUpperCase() will return "HELLO WORLD"
+				System.out.println("I have no idea what a \"" + response.toUpperCase() + "\" is..."); 
 				PromptUser(); 
 				break;
 		}
 	}
 	
 	private static void DisplayData(int i) {
-		switch (i) {
+		// By casting the int i as a long, I can assign the value of i to the 
+		// long L, and use L for further operations.
+		long L = (long)i;
+		switch (L) {
 			case 0:  // string
 				System.out.println("A String is a collection of chars."); 
-				DisplayAdditionalInfo(0);
 				break;
 			case 1: // int
 				System.out.println("An int is a whole number."); 
@@ -57,27 +69,8 @@ public class Main {
 				System.out.println("Available options:\n\tString\n\tInt\n\tDouble\n\tFloat\n\tBoolean\n\tOptions"); 
 				break; 
 		}
+		PromptUser();
 	}
-
-	private static void DisplayAdditionalInfo(int i) {
-		Scanner input = new Scanner(System.in);
-		switch (i) {
-			case 0: // String
-				System.out.println("The String class has methods built in that can be useful.\n"
-						+ "Three such methods are:\n\tJoin\n\tLength\n\ttoLowerCase\n"
-						+ "Please type the name of one of the choices.");
-				String response = input.nextLine();
-				//if (response.toLowerCase().equals("test")) { System.out.println("yep"); }
-				break;
-			case 1: 
-				break;
-			case 2: 
-				break;
-			default:
-				break;
-		}
-	}
-
 }
 
 /*
