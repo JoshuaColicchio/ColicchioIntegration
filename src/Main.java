@@ -17,17 +17,28 @@ public class Main {
 		iostream.close();
 	}
 	
-	public static void DisplayMenu(String response) {
-		System.out.println("Debug: Recieved " + response);
+	private static void DisplayMenu(String response) {
 		switch(response.toLowerCase()) {
-		case "string": response = "you typed string";
-		case "int": response = "you typed int";
-		case "double": response = "you typed double";
-		case "float": response = "you typed float";
-		case "boolean": response = "you typed boolean";
-		default: response = "I have no idea what a \"" + response + "\" is...";
+			case "string": DisplayData(0); break;
+			case "int": DisplayData(1); break;
+			case "double": DisplayData(2); break;
+			case "float": DisplayData(3); break;
+			case "boolean": DisplayData(4); break;
+			default: 
+				System.out.println("I have no idea what a \"" + response + "\" is..."); 
+				PromptUser(); 
+				break;
 		}
-		System.out.println(response);
+	}
+	
+	private static void DisplayData(int TypeId) {
+		switch (TypeId) {
+			case 0: System.out.println("A String is a collection of chars."); break; // string
+			case 1: System.out.println("An int is a whole number."); break; // int
+			case 2: System.out.println("A double is a 64-bit number with a fractional element."); break; // double
+			case 3: System.out.println("A float is a 32-bit number with a fractional element."); break; // float
+			case 4: System.out.println("A boolean is a true / false statement."); break; // bool
+		}
 		PromptUser();
 	}
 
