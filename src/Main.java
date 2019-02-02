@@ -2,6 +2,14 @@ import java.util.Scanner;
 
 // Joshua Colicchio
 // Program integrating skills learned in COP 2006
+
+/*
+ * A variable in Java is like a box that you can store things in. The type of thing you can store
+ * in the box depends on the type of box that you create. Realistically, a variable is a name for a section of memory.
+ *
+ * Scope in Java is the level of access a variable has / where a variable 'exists'.
+ * For example, if you declare a variable inside of a method, that variable is scoped only in that method, not outside of it.
+ */
 public class Main {
 
 	public static void main(String[] args) {
@@ -18,8 +26,13 @@ public class Main {
 		String UserInput = iostream.nextLine();
 		// The String.trim method removes any whitespace from the beginning and
 		// end of the string.
-		DisplayMenu(UserInput.trim());
 		iostream.close();
+		Boolean IsInputEmpty = (UserInput.IsEmpty() || UserInput == null);
+		if (IsInputEmpty) {
+		  PromptUser();	
+		} else {
+		  DisplayMenu(UserInput.trim());
+		}
 	}
 	
 	private static void DisplayMenu(String response) {
