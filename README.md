@@ -13,7 +13,7 @@ Use an int variable with an appropriate name (singular noun, lowerCamelCase) - L
 Use an double variable with an appropriate name (singular noun, lowerCamelCase) - Line 20  
 Use a String object with an appropriate name (singular noun, lowerCamelCase) - Line 18  
 Define (in English) the term "variable" as it relates to computer programming in a comment or the user interface - Lines 7-8  
-Define (in English) the term "scope" as it relates to computer programming in a comment or the user interface - Lines 9-10  
+Define (in English) the term "scope" as it relates to computer programming in a comment or the user interface - Lines 10 - 11  
 Use final with a variable and describe what it means in a comment - Line 16  
 Use casting and describe what it means in a comment - Lines 62 - 64  
 Format strings using escape sequences - Line 17  
