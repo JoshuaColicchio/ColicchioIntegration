@@ -17,3 +17,23 @@ Define (in English) the term "scope" as it relates to computer programming in a 
 Use final with a variable and describe what it means in a comment - Line 16  
 Use casting and describe what it means in a comment - Lines 62 - 64  
 Format strings using escape sequences - Line 17  
+  
+PSI 2  
+Create a method with arguments and return values  
+Identify a method call and argument in comments  
+Identify a header and parameter in comments  
+Use the Random class  
+Use the Math class  
+Create if/else constructs  
+Create ternary constructs  
+Use a switch statement  
+Compare two String objects by using the compareTo and equals methods and make a comment describing how == works with objects  
+Use +, -, *, /, %, ++, --, +=   
+Use relational operators  
+Use conditional operators  
+Describe operator precedence as a comment  
+Create and use while loops  
+Create and use for loops  
+Create and use do/while loops  
+Use break in a loop with a comment describing what it does  
+Use continue in a loop with a comment describing what it does  
