@@ -19,9 +19,9 @@ Use casting and describe what it means in a comment - Lines 62 - 64
 Format strings using escape sequences - Line 17  
   
 PSI 2  
-Create a method with arguments and return values  
-Identify a method call and argument in comments  
-Identify a header and parameter in comments  
+Create a method with arguments and return values - Line 33  
+Identify a method call and argument in comments - Line 31-33  
+Identify a header and parameter in comments - Line 36  
 Use the Random class  
 Use the Math class  
 Create if/else constructs  
