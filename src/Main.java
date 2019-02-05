@@ -14,7 +14,7 @@ public class Main {
   
 	public static void main(String[] args) {
 		System.out.println("Welcome to my integration project!");
-		PromptUser();
+		promptUser();
 	}
 	
 	public static void promptUser() {
@@ -37,12 +37,12 @@ public class Main {
 		 *  "hello world"
 	 	 */
 		switch(response.toLowerCase()) {
-			case "string": DisplayData(0); break;
-			case "int": DisplayData(1); break;
-			case "double": DisplayData(2); break;
-			case "float": DisplayData(3); break;
-			case "boolean": DisplayData(4); break;
-			case "options": DisplayData(999); break;
+			case "string": displayData(0); break;
+			case "int": displayData(1); break;
+			case "double": displayData(2); break;
+			case "float": displayData(3); break;
+			case "boolean": displayData(4); break;
+			case "options": displayData(999); break;
 			default: 
 				// The String.toUpperCase method converts a given string into its upper case counterpart.
 				// IE - "Hello World".toUpperCase() will return "HELLO WORLD"
