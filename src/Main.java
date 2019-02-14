@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 // Joshua Colicchio
@@ -11,24 +12,49 @@ import java.util.Scanner;
  * For example, if you declare a variable inside of a method, that variable is scoped only in that method, not outside of it.
  */
 public class Main {
-  
+
+	// The "final" keyword makes it so the program cannot change the value of the variable.
+	// IE: If I typed PromptMessage = "some new message", the compiler would throw an error.
+	final static String PROMPT_MSG = "Type a data type to learn more about it. Type \"Options\" for available data types";
+	
 	public static void main(String[] args) {
 		System.out.println("Welcome to my integration project!");
 		promptUser();
 	}
 	
 	public static void promptUser() {
-		// The "final" keyword makes it so the program cannot change the value of the variable.
-		// IE: If I typed PromptMessage = "some new message", the compiler would throw an error.
-		final String PROMPT_MSG = "Type a data type to learn more about it. Type \"Options\" for available data types";
 		System.out.println(PROMPT_MSG);
 		Scanner iostream = new Scanner(System.in);
-		String UserInput = iostream.nextLine();
-		// The String.trim method removes any whitespace from the beginning and
-		// end of the string.
-		displayMenu(UserInput.trim());
+		String userInput = iostream.nextLine();
+		// The String.equals method is used instead of '==' because
+		// Java looks at '==' by checking whether or not both objects
+		// occupy the same spot in memory.
+		if (userInput.equals("") || userInput.isEmpty()) {
+			promptUser("Error: Please type a data type.");
+			return;
+		} else {
+			// The String.trim method removes any whitespace from the beginning and
+			// end of the string.
+			displayMenu(userInput.trim());
+		}
 	}
 	
+	public static void promptUser(String customPromptMSG) {
+		System.out.println(customPromptMSG);
+		Scanner iostream = new Scanner(System.in);
+		String userInput = iostream.nextLine();
+		if (userInput.compareTo("") != 0 || userInput.isEmpty()) {
+			promptUser("Error: Please type a data type.");
+			return;
+		} else {
+			// The String.trim method removes any whitespace from the beginning and
+			// end of the string.
+			displayMenu(userInput.trim());
+		}
+	}
+	
+	// "private static void displayMenu" is a header,
+	// and "(String response)" is a parameter
 	private static void displayMenu(String response) {
 		/*
 		 *  The String.toLowerCase method converts a given string to
@@ -37,17 +63,20 @@ public class Main {
 		 *  "hello world"
 	 	 */
 		switch(response.toLowerCase()) {
+			// displayData() below is an example of a method call
 			case "string": displayData(0); break;
 			case "int": displayData(1); break;
 			case "double": displayData(2); break;
 			case "float": displayData(3); break;
 			case "boolean": displayData(4); break;
+			case "random": Random rand = new Random();
+						   displayData(rand.nextInt(5));
+						   break;
 			case "options": displayData(999); break;
 			default: 
 				// The String.toUpperCase method converts a given string into its upper case counterpart.
 				// IE - "Hello World".toUpperCase() will return "HELLO WORLD"
-				System.out.println("I have no idea what a \"" + response.toUpperCase() + "\" is..."); 
-				promptUser(); 
+				promptUser("I have no idea what a \"" + response.toUpperCase() + "\" is..."); 
 				break;
 		}
 	}
