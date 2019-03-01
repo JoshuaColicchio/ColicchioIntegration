@@ -20,14 +20,14 @@ Format strings using escape sequences - Line 17
   
 PSI 2  
 Create a method with arguments and return values - Line 33  
-Identify a method call and argument in comments - Line 31-33  
-Identify a header and parameter in comments - Line 36  
-Use the Random class  
-Use the Math class  
-Create if/else constructs  
-Create ternary constructs  
-Use a switch statement  
-Compare two String objects by using the compareTo and equals methods and make a comment describing how == works with objects  
+Identify a method call and argument in comments - Line 41  
+Identify a header and parameter in comments - Line 33-34  
+Use the Random class - Line 45  
+Use the Math class   
+Create if/else constructs - Lines 28-31  
+Create ternary constructs   
+Use a switch statement - Line 42  
+Compare two String objects by using the compareTo and equals methods and make a comment describing how == works with objects - Lines 29-31 and 46  
 Use +, -, *, /, %, ++, --, +=   
 Use relational operators  
 Use conditional operators  
