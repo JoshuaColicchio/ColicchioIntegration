@@ -1,7 +1,9 @@
 # ColicchioIntegration
 Joshua Colicchio Integration Project for COP 2006
 
-Disclaimer - Git says there are two contributers, but they're both me. My home computer was logged into my old git account when I pulled the repository, and I didn't catch it until recently. So half of the commits are from my official account, and the other half are from my original account. I didn't want you to see that and think I've got another guy writing this for me.     
+Disclaimer - Git says there are two contributers, but they're both me. My home computer was logged into my old git account when I pulled the repository, and I didn't catch it until recently. So half of the commits are from my official account, and the other half are from my original account. I didn't want you to see that and think I've got another guy writing this for me.  
+  
+Please grade the master branch. The other branches are more or less experimental versions I was playing around with.
 
 Integration Trello Board:
 https://trello.com/b/4YxiDFdp
