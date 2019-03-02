@@ -12,7 +12,7 @@ import utils.Enums.*;
  * Joshua Colicchio
  * 
  * This main file is the driver behind the program. It handles the main JFrame window and dictates
- * when the other classes are called and what's displayed at any given time
+ * when the other classes are called and what's displayed at any given time.
  * 
  */
 
@@ -33,7 +33,7 @@ public class Main implements Runnable {
   private boolean bRunning = false;
 
   // The "final" keyword makes it so the program cannot change the value of the variable.
-  // So if I tried to set WIDTH = 5 anywhere in this program, it would throw an error
+  // So if I tried 'WIDTH = 5' anywhere in this program, it would throw a compiler error.
   private final int WIDTH = 720;
   private final int HEIGHT = 600;
 
@@ -90,7 +90,8 @@ public class Main implements Runnable {
 
       timeSinceBeganRunning = (System.currentTimeMillis() - startTime);
 
-      // By casting a variable, Java attempts to convert the variable into the casted type
+      // By casting a variable, Java attempts to convert the variable from its declared type into
+      // the casted type.
       if (timeSinceBeganRunning % 1000 == 0)
         window.setTitle("Colicchio Integration - Random Line Runtime: "
             + (int) (timeSinceBeganRunning / 1000) + " seconds");
@@ -102,21 +103,19 @@ public class Main implements Runnable {
        * operator compares the locations in memory, not the content of the strings.
        * 
        * The String.equals method compares the characters of two strings The String.compareTo method
-       * compares the characters of two strings 'lexographically' which means it compares each
+       * compares the characters of two strings 'lexicographically' which means it compares each
        * character to see which one has a higher value. Returns 0 if they're identical, < 0 if the
-       * calling string is lexographically less, and > 0 if the calling string is lexographically
-       * greater
+       * calling string is lexicographically less, and > 0 if the calling string is
+       * lexicographically greater
        */
       if (Math.floor(resetCounter) >= 10 && testStr1.equals(testStr2)) {
-        // Sorry, this is going to spam the heck out of your console. Had to add it for PSI 1
         String specialOutput =
             frameCounter + " frames have occured since last output.\nHow bout that.";
         resetCounter = 0.0;
         frameCounter = 0;
         System.out.println(specialOutput);
       } else {
-        resetCounter += 0.001; // Doesn't really do anything, but I couldn't think of a fitting way
-                               // to shove a double, or an int, into this program to satisfy PSI 1
+        resetCounter += 0.001; // Resets the frame counter after it reaches 10
       }
 
       resetCounter = (resetCounter % 1 == 1) ? 1 : resetCounter;
@@ -148,7 +147,7 @@ public class Main implements Runnable {
        * The 'continue' causes the for loop to end execution of the current iteration and skip to
        * the next one. So in the code below, once the for loop reaches i == 3, the if statement
        * triggers and line i == 3 doesn't draw. Though the program renders so quickly you'd have a
-       * hard time noticing it.
+       * hard time noticing it currently.
        */
       if (i == 3)
         continue;
@@ -170,7 +169,7 @@ public class Main implements Runnable {
      * a lower precedence than * and /.
      */
 
-    // This is shoved in here for PSI 2, since I don't have much of a use for it yet.
+
     int sleepTimer = 50;
     do {
       /*
@@ -189,46 +188,6 @@ public class Main implements Runnable {
     g.dispose();
     bs.show();
   }
-
-
-  // "private static void displayMenu" is a header,
-  // and "(String response)" is a parameter
-  // private static void displayMenu(String response) {
-  /*
-   * The String.toLowerCase method converts a given string to its lower case counterpart. IE -
-   * "Hello World".toLowerCase() will return "hello world"
-   */
-  /*
-   * switch (response.toLowerCase()) { // displayData() below is an example of a method call case
-   * "string": displayData(0); break; case "int": displayData(1); break; case "double":
-   * displayData(2); break; case "float": displayData(3); break; case "boolean": displayData(4);
-   * break; case "random": Random rand = new Random(); displayData(rand.nextInt(5)); break; case
-   * "options": displayData(999); break; default: // The String.toUpperCase method converts a given
-   * string into its upper case counterpart. // IE - "Hello World".toUpperCase() will return
-   * "HELLO WORLD" promptUser("I have no idea what a \"" + response.toUpperCase() + "\" is...");
-   * break; } }
-   * 
-   * private static void displayData(long input) { // By casting the int i as a long, I can assign
-   * the value of i to the // long L, and use L for further operations. int switchInput = (int)
-   * input; switch (switchInput) { case 0: // string
-   * System.out.println("A String is a collection of chars."); break; case 1: // int
-   * System.out.println("An int is a whole number."); break; case 2: // double
-   * System.out.println("A double is a 64-bit number with a fractional element."); break; case 3: //
-   * float System.out.println("A float is a 32-bit number with a fractional element."); break; case
-   * 4: // bool System.out.println("A boolean is a true / false statement."); break; case 999: //
-   * options System.out.println(
-   * "Available options:\n\tString\n\tInt\n\tDouble\n\tFloat\n\tBoolean\n\tOptions"); break; }
-   * promptUser(); }
-   * 
-   * @Override public void keyPressed(KeyEvent arg0) {
-   * 
-   * }
-   * 
-   * @Override public void keyReleased(KeyEvent arg0) {}
-   * 
-   * @Override public void keyTyped(KeyEvent arg0) {}
-   */
-
 }
 
 /*

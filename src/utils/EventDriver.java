@@ -11,7 +11,9 @@ import utils.Enums.*;
  * 
  * I wanted to have the program driven by button presses and mouse clicks, so I decided to have one
  * class be the primary driver for all key/mouse based events rather than clutter the other class
- * files with a listener here, a listener there etc
+ * files with a listener here, a listener there etc. In the current stage, the program only ever
+ * needs to listen for keypress events, but I'd like to do something with the mouse for the next
+ * PSI.
  * 
  */
 

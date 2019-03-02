@@ -30,50 +30,16 @@ public class PanelFactory {
     frameInstance = frame;
   }
 
-  public static GridBagConstraints SetGridCoords(GridBagConstraints gbc, int x, int y) {
-    gbc.gridx = x;
-    gbc.gridy = y;
-    return gbc;
-  }
-
-  public static GridBagConstraints SetWeights(GridBagConstraints gbc, double x, double y) {
-    gbc.weightx = x;
-    gbc.weighty = y;
-    return gbc;
-  }
-
-  public static GridBagConstraints SetSize(GridBagConstraints gbc, int width, int height) {
-    if (width != -1)
-      gbc.gridwidth = width;
-    if (height != -1)
-      gbc.gridheight = height;
-    return gbc;
-  }
-
-  public static GridBagConstraints SetAll(GridBagConstraints gbc, int gridx, int gridy,
-      int gridwidth, int gridheight, double weightx, double weighty) {
-    gbc.gridx = gridx;
-    gbc.gridy = gridy;
-    gbc.gridwidth = gridwidth;
-    gbc.gridheight = gridheight;
-    gbc.weightx = weightx;
-    gbc.weighty = weighty;
-    return gbc;
-  }
-
-  /*
-   * Pre-built menus below
-   * 
-   */
+  // Pre-built menus below
 
   public static void BuildAndDisplayMainMenu() {
-    // this is used when the class calling this method doesn't have a reference to the main window,
+    // This is used when the class calling this method doesn't have a reference to the main window,
     // so this method will pass it instead
     BuildAndDisplayMainMenu(frameInstance);
   }
 
   public static void BuildAndDisplayDataTypesMenu() {
-    // this is used when the class calling this method doesn't have a reference to the main window,
+    // This is used when the class calling this method doesn't have a reference to the main window,
     // so this method will pass it instead
 
     // BuildAndDisplayDataTypesMenu is a method call, and frameInstance is the argument
@@ -133,7 +99,7 @@ public class PanelFactory {
     });
     panel.add(button, gbc);
 
-    // validate the frame so it updates
+    // Validate the frame so it updates
     frame.validate();
 
     return frame;
@@ -223,7 +189,7 @@ public class PanelFactory {
     });
     panel.add(button, gbc);
 
-    // validate the frame so it updates
+    // Validate the frame so it updates
     frame.validate();
 
     return frame;
@@ -243,5 +209,38 @@ public class PanelFactory {
     label.setFont(new Font(font, bBoldText ? Font.BOLD : Font.PLAIN, size));
 
     return label;
+  }
+
+
+
+  public static GridBagConstraints SetGridCoords(GridBagConstraints gbc, int x, int y) {
+    gbc.gridx = x;
+    gbc.gridy = y;
+    return gbc;
+  }
+
+  public static GridBagConstraints SetWeights(GridBagConstraints gbc, double x, double y) {
+    gbc.weightx = x;
+    gbc.weighty = y;
+    return gbc;
+  }
+
+  public static GridBagConstraints SetSize(GridBagConstraints gbc, int width, int height) {
+    if (width != -1)
+      gbc.gridwidth = width;
+    if (height != -1)
+      gbc.gridheight = height;
+    return gbc;
+  }
+
+  public static GridBagConstraints SetAll(GridBagConstraints gbc, int gridx, int gridy,
+      int gridwidth, int gridheight, double weightx, double weighty) {
+    gbc.gridx = gridx;
+    gbc.gridy = gridy;
+    gbc.gridwidth = gridwidth;
+    gbc.gridheight = gridheight;
+    gbc.weightx = weightx;
+    gbc.weighty = weighty;
+    return gbc;
   }
 }
