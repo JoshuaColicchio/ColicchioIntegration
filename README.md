@@ -4,36 +4,43 @@ Joshua Colicchio Integration Project for COP 2006
 Integration Trello Board:
 https://trello.com/b/4YxiDFdp
 
-Add your name as a comment at top of every file - Line 3  
-Add a description of the program as a comment at top - Lines 4-5  
-Add a list and description of Java built-in data types within the user interface or in comments - Lines 13-90  
-Add a greeting / introduction to the user - Lines 16 - 18  
-Use a boolean variable with an appropriate name  (singular noun, lowerCamelCase) - Line 22  
-Use an int variable with an appropriate name (singular noun, lowerCamelCase) - Line 64  
-Use an double variable with an appropriate name (singular noun, lowerCamelCase) - Line 20  
-Use a String object with an appropriate name (singular noun, lowerCamelCase) - Line 18  
-Define (in English) the term "variable" as it relates to computer programming in a comment or the user interface - Lines 7-8  
-Define (in English) the term "scope" as it relates to computer programming in a comment or the user interface - Lines 10 - 11  
-Use final with a variable and describe what it means in a comment - Line 16  
-Use casting and describe what it means in a comment - Lines 62 - 64  
-Format strings using escape sequences - Line 17  
+Add your name as a comment at top of every file - Top of every file  
+Add a description of the program as a comment at top - Top of every file  
+Add a list and description of Java built-in data types within the user interface or in comments - PanelFactory.java method at line 85  
+Add a greeting / introduction to the user - PanelFactory.java line 101  
+Use a boolean variable with an appropriate name  (singular noun, lowerCamelCase) - Main.java line 80  
+Use an int variable with an appropriate name (singular noun, lowerCamelCase) - Main.java line 72  
+Use an double variable with an appropriate name (singular noun, lowerCamelCase) - Main.java line 73  
+Use a String object with an appropriate name (singular noun, lowerCamelCase) - PanelFactory.java line 101  
+Define (in English) the term "variable" as it relates to computer programming in a comment or the user interface - Main.java line 20  
+Define (in English) the term "scope" as it relates to computer programming in a comment or the user interface - Main.java line 24  
+Use final with a variable and describe what it means in a comment - Main.java line 37  
+Use casting and describe what it means in a comment - Main.java line 96  
+Format strings using escape sequences - Main.java line 113 
   
 PSI 2  
-Create a method with arguments and return values - Line 33  
-Identify a method call and argument in comments - Line 41  
-Identify a header and parameter in comments - Line 33-34  
-Use the Random class - Line 45  
-Use the Math class   
-Create if/else constructs - Lines 28-31  
-Create ternary constructs   
-Use a switch statement - Line 42  
-Compare two String objects by using the compareTo and equals methods and make a comment describing how == works with objects - Lines 29-31 and 46  
-Use +, -, *, /, %, ++, --, +=   
-Use relational operators  
-Use conditional operators  
-Describe operator precedence as a comment  
-Create and use while loops  
-Create and use for loops  
-Create and use do/while loops  
-Use break in a loop with a comment describing what it does  
-Use continue in a loop with a comment describing what it does  
+Create a method with arguments and return values - PanelFactory.java line 85  
+Identify a method call and argument in comments - PanelFactory.java line 79  
+Identify a header and parameter in comments - PanelFactory.java line 83 
+Use the Random class - Main.java line 144  
+Use the Math class - Main.java line 110  
+Create if/else constructs - Main.java line 110  
+Create ternary constructs - EventDriver.java line 44   
+Use a switch statement - EventDriver line 58  
+Compare two String objects by using the compareTo and equals methods and make a comment describing how == works with objects - Main.java line 101  
+Use + Main.java line 156  
+Use - Main.java line 157  
+Use * Main.java line 156  
+Use / Main.java line 157  
+Use % Main.java line 94    
+Use ++ Main.java line 98  
+Use -- Main.java line 145  
+Use += Main.java line 118   
+Use relational operators - Main.java lines 94, 110, 124  
+Use conditional operators - Main.java line 122  
+Describe operator precedence as a comment - Main.java line 162  
+Create and use while loops - Main.java line 80  
+Create and use for loops - Main.java line 145  
+Create and use do/while loops - Main.java line 175  
+Use break in a loop with a comment describing what it does - Main.java line 177  
+Use continue in a loop with a comment describing what it does - Main.java line 147  
