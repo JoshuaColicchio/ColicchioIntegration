@@ -2,6 +2,7 @@ package main;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 import utils.EventDriver;
@@ -33,12 +34,9 @@ public class Main implements Runnable {
   private Thread thread;
   private boolean running = false;
   private boolean useRandomLines = false;
-  private RandomLine[] randomLines = {
-      new RandomLine(0, 0, 200, 200, Color.red),
-      new RandomLine(200, 0, 0, 100, Color.blue),
-      new RandomLine(720, 600, 0, 0, Color.cyan),
-      new RandomLine(90, 90, 195, 195, Color.orange)
-  };
+  private ArrayList<RandomLine> randomLines = new ArrayList<RandomLine>();
+  private int[] predefinedIntArray = {-9201, -10000, 500, 20510};
+
 
   // The "final" keyword makes it so the program cannot change the value of the variable.
   // So if I tried 'WIDTH = 5' anywhere in this program, it would throw a compiler error.
@@ -58,6 +56,18 @@ public class Main implements Runnable {
     // Create and load main menu
     PanelFactory.updateInstance(this, eventDriver, window);
     PanelFactory.buildAndDisplayMainMenu(window);
+
+    // find smallest value in array for PSI 3
+    findSmallestValueInArray(new int[] {0, 10, 200, 4, 5});
+    findSmallestValueInArray(new int[] {999992019, -520, 909});
+    findSmallestValueInArray(new int[] {5000, 2, 5});
+    findSmallestValueInArray(predefinedIntArray);
+
+    // fill randomLines arraylist
+    randomLines.add(new RandomLine(0, 0, 200, 200, Color.red));
+    randomLines.add(new RandomLine(200, 0, 0, 100, Color.blue));
+    randomLines.add(new RandomLine(720, 600, 0, 0, Color.cyan));
+    randomLines.add(new RandomLine(90, 90, 195, 195, Color.orange));
 
     thread = new Thread(this);
   }
@@ -160,13 +170,14 @@ public class Main implements Runnable {
             r.nextInt(5) * (window.getHeight() / 4));
       }
     } else {
-      
+
       // Use non-random lines
-      for (int i = 0; i < randomLines.length; i++) {
-        RandomLine temp = randomLines[i];
+      for (int i = 0; i < randomLines.size(); i++) {
+        RandomLine temp = randomLines.get(i);
         g.setColor(temp.getColor());
         g.drawLine(temp.getStartX(), temp.getStartY(), temp.getEndX(), temp.getEndY());
-        //System.out.println(temp.getStartX() + " " + temp.getStartY() + " " + temp.getEndX() + " " + temp.getEndY());
+        // System.out.println(temp.getStartX() + " " + temp.getStartY() + " " + temp.getEndX() + " "
+        // + temp.getEndY());
       }
     }
 
@@ -201,9 +212,25 @@ public class Main implements Runnable {
     g.dispose();
     bs.show();
   }
-  
+
   public void setLineStyle(boolean isRandom) {
     useRandomLines = isRandom;
+  }
+
+  public void findSmallestValueInArray(int[] array) {
+    String arrayAsString = "";
+    int currentSmallest = array[0];
+    int indexOf = 0;
+    for (int i = 0; i < array.length; i++) {
+      arrayAsString = arrayAsString + " " + array[i] + ", ";
+      if (array[i] > currentSmallest)
+        continue;
+
+      currentSmallest = array[i];
+      indexOf = i;
+    }
+    System.out.println("The smallest value in the array: " + arrayAsString + " is: " + currentSmallest
+        + ". Found at index: " + indexOf);
   }
 }
 

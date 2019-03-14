@@ -55,8 +55,8 @@ Overload a method - PanelFactory.java Lines 211-225
 Describe inheritance and its benefits  
 Develop code that makes use of polymorphism  
 Use super and this to access objects and constructors  
-Declare, instantiate, initialize and use a one-dimensional array  
-Manually find the smallest value in an array  
+Declare, instantiate, initialize and use a one-dimensional array - Main.java line 38  
+Manually find the smallest value in an array - Main.java, method at line 219, calls at line 61  
 Get a sum of the values in an array using an accumulator.  
 Search an array and identify the index where a value was found.  
 Create and use the enhanced for loop  
