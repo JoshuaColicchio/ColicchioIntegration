@@ -33,20 +33,24 @@ public class PanelFactory {
   // Pre-built menus below
 
   public static void BuildAndDisplayMainMenu() {
-    // This is used when the class calling this method doesn't have a reference to the main window,
+    // This is used when the class calling this method doesn't have a reference to
+    // the main window,
     // so this method will pass it instead
     BuildAndDisplayMainMenu(frameInstance);
   }
 
   public static void BuildAndDisplayDataTypesMenu() {
-    // This is used when the class calling this method doesn't have a reference to the main window,
+    // This is used when the class calling this method doesn't have a reference to
+    // the main window,
     // so this method will pass it instead
 
-    // BuildAndDisplayDataTypesMenu is a method call, and frameInstance is the argument
+    // BuildAndDisplayDataTypesMenu is a method call, and frameInstance is the
+    // argument
     BuildAndDisplayDataTypesMenu(frameInstance);
   }
 
-  // The 'public static JFrame BuildAndDisplayMainMenu' portion is the header of a method
+  // The 'public static JFrame BuildAndDisplayMainMenu' portion is the header of a
+  // method
   // The (JFrame frame) portion is the parameter
   public static JFrame BuildAndDisplayMainMenu(JFrame frame) {
 
@@ -204,14 +208,26 @@ public class PanelFactory {
   }
 
   // Methods to make code cleaner
+  public static JLabel SetFont(JLabel label, String font) {
+
+    label.setFont(new Font(font, Font.PLAIN, 16));
+
+    return label;
+  }
+  
+  public static JLabel SetFont(JLabel label, String font, int size) {
+
+    label.setFont(new Font(font, Font.PLAIN, size));
+
+    return label;
+  }
+  
   public static JLabel SetFont(JLabel label, String font, int size, boolean bBoldText) {
 
     label.setFont(new Font(font, bBoldText ? Font.BOLD : Font.PLAIN, size));
 
     return label;
   }
-
-
 
   public static GridBagConstraints SetGridCoords(GridBagConstraints gbc, int x, int y) {
     gbc.gridx = x;

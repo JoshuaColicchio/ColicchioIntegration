@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.swing.*;
 import utils.EventDriver;
 import utils.PanelFactory;
+import utils.RandomLine;
 import utils.Enums.*;
 
 /*
@@ -31,6 +32,13 @@ public class Main implements Runnable {
   private EventDriver eventDriver;
   private Thread thread;
   private boolean bRunning = false;
+  private boolean useRandomLines = false;
+  private RandomLine[] randomLines = {
+      new RandomLine(5, 20, 80, 2, Color.red),
+      new RandomLine(80, 2, 5, 20, Color.blue),
+      new RandomLine(120, 120, 0, 0, Color.cyan),
+      new RandomLine(90, 90, 95, 95, Color.orange)
+  };
 
   // The "final" keyword makes it so the program cannot change the value of the variable.
   // So if I tried 'WIDTH = 5' anywhere in this program, it would throw a compiler error.
@@ -54,6 +62,10 @@ public class Main implements Runnable {
     thread = new Thread(this);
   }
 
+  public JFrame getWindow() {
+    return window;
+  }
+
   public void start() {
     bRunning = true;
     if (thread.getState() == Thread.State.TERMINATED) {
@@ -65,37 +77,27 @@ public class Main implements Runnable {
 
   public void stop() {
     bRunning = false;
+    synchronized (thread) {
+      try {
+        thread.wait();
+      } catch (InterruptedException e) {
+        System.out.println(e);
+      }
+    }
   }
 
   @Override
   public void run() {
     int frameCounter = 0;
     double resetCounter = 0.0;
-    long timeSinceBeganRunning = 0;
-    long startTime = System.currentTimeMillis();
+    TImer timer = new TImer();
 
     String testStr1 = "Howdy";
     String testStr2 = "Howdy";
 
     while (bRunning) {
-      synchronized (thread) {
-        if (!bRunning) {
-          try {
-            thread.wait();
-          } catch (InterruptedException e) {
-            System.out.println(e);
-          }
-        }
-      }
 
-      timeSinceBeganRunning = (System.currentTimeMillis() - startTime);
-
-      // By casting a variable, Java attempts to convert the variable from its declared type into
-      // the casted type.
-      if (timeSinceBeganRunning % 1000 == 0)
-        window.setTitle("Colicchio Integration - Random Line Runtime: "
-            + (int) (timeSinceBeganRunning / 1000) + " seconds");
-
+      timer.update(this);
       frameCounter++;
 
       /*
@@ -110,7 +112,7 @@ public class Main implements Runnable {
        */
       if (Math.floor(resetCounter) >= 10 && testStr1.equals(testStr2)) {
         String specialOutput =
-            frameCounter + " frames have occured since last output.\nHow bout that.";
+            frameCounter + " \"frames\" have occured since last output.\nHow bout that.";
         resetCounter = 0.0;
         frameCounter = 0;
         System.out.println(specialOutput);
@@ -139,22 +141,31 @@ public class Main implements Runnable {
     Graphics g = bs.getDrawGraphics();
     g.clearRect(0, 0, window.getWidth(), window.getHeight());
 
-    g.setColor(Color.RED);
-    Random r = new Random();
-    for (int i = 5; i > 0; i--) {
+    if (useRandomLines) {
+      g.setColor(Color.RED);
+      Random r = new Random();
+      for (int i = 5; i > 0; i--) {
 
-      /*
-       * The 'continue' causes the for loop to end execution of the current iteration and skip to
-       * the next one. So in the code below, once the for loop reaches i == 3, the if statement
-       * triggers and line i == 3 doesn't draw. Though the program renders so quickly you'd have a
-       * hard time noticing it currently.
-       */
-      if (i == 3)
-        continue;
+        /*
+         * The 'continue' causes the for loop to end execution of the current iteration and skip to
+         * the next one. So in the code below, once the for loop reaches i == 3, the if statement
+         * triggers and line i == 3 doesn't draw. Though the program renders so quickly you'd have a
+         * hard time noticing it currently.
+         */
+        if (i == 3)
+          continue;
 
-      g.drawLine(r.nextInt(9) * (window.getWidth() / 8) + 5,
-          r.nextInt(5) * (window.getHeight() / 4) - 2, r.nextInt(9) * (window.getWidth() / 8),
-          r.nextInt(5) * (window.getHeight() / 4));
+        g.drawLine(r.nextInt(9) * (window.getWidth() / 8) + 5,
+            r.nextInt(5) * (window.getHeight() / 4) - 2, r.nextInt(9) * (window.getWidth() / 8),
+            r.nextInt(5) * (window.getHeight() / 4));
+      }
+    } else {
+      // Use non-random lines
+      for (int i = 0; i < randomLines.length; i++) {
+        RandomLine temp = randomLines[i];
+        g.setColor(temp.getColor());
+        g.drawLine(temp.getStartX(), temp.getStartY(), temp.getEndX(), temp.getEndY());
+      }
     }
 
     /*
