@@ -24,7 +24,7 @@ public class PanelFactory {
   private static EventDriver eventDriverInstance; // Stores a reference to the eventDriver
   private static JFrame frameInstance; // Stores a reference to the frame being displayed
 
-  public static void UpdateInstance(Main mInstance, EventDriver eInstance, JFrame frame) {
+  public static void updateInstance(Main mInstance, EventDriver eInstance, JFrame frame) {
     mainInstance = mInstance;
     eventDriverInstance = eInstance;
     frameInstance = frame;
@@ -32,27 +32,27 @@ public class PanelFactory {
 
   // Pre-built menus below
 
-  public static void BuildAndDisplayMainMenu() {
+  public static void buildAndDisplayMainMenu() {
     // This is used when the class calling this method doesn't have a reference to
     // the main window,
     // so this method will pass it instead
-    BuildAndDisplayMainMenu(frameInstance);
+    buildAndDisplayMainMenu(frameInstance);
   }
 
-  public static void BuildAndDisplayDataTypesMenu() {
+  public static void buildAndDisplayDataTypesMenu() {
     // This is used when the class calling this method doesn't have a reference to
     // the main window,
     // so this method will pass it instead
 
     // BuildAndDisplayDataTypesMenu is a method call, and frameInstance is the
     // argument
-    BuildAndDisplayDataTypesMenu(frameInstance);
+    buildAndDisplayDataTypesMenu(frameInstance);
   }
 
   // The 'public static JFrame BuildAndDisplayMainMenu' portion is the header of a
   // method
   // The (JFrame frame) portion is the parameter
-  public static JFrame BuildAndDisplayMainMenu(JFrame frame) {
+  public static JFrame buildAndDisplayMainMenu(JFrame frame) {
 
     // Clean frame to make space to build new frame
     frame.getContentPane().removeAll();
@@ -67,14 +67,14 @@ public class PanelFactory {
     frame.add(panel, gbc);
 
     // Create and add title
-    SetAll(gbc, 0, 0, 3, 1, 0.1, 0.1);
+    setAll(gbc, 0, 0, 3, 1, 0.1, 0.1);
     String titleText = "Welcome to my Integration Project!";
     JLabel title = new JLabel(titleText, JLabel.CENTER);
     title.setOpaque(true);
     panel.add(title, gbc);
 
     // Add DataTypes Menu button
-    SetAll(gbc, 0, 1, 1, 1, 0.1, 0.1);
+    setAll(gbc, 0, 1, 1, 1, 0.1, 0.1);
     gbc.fill = GridBagConstraints.NONE;
     JButton button = new JButton("Click here to learn about Java's data types");
 
@@ -82,22 +82,36 @@ public class PanelFactory {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        BuildAndDisplayDataTypesMenu(frame);
+        buildAndDisplayDataTypesMenu(frame);
         return;
       }
     });
 
     panel.add(button, gbc);
 
-    // Add random line generator button
+ // Add random line generator button
     button = new JButton("Random line generator");
-    SetGridCoords(gbc, 0, 2);
+    setGridCoords(gbc, 0, 2);
     button.addActionListener(new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
         // Begin rendering random lines
-        BuildAndDisplayRandomLinesScreen(frame);
+        buildAndDisplayRandomLinesScreen(frame);
+        return;
+      }
+    });
+    panel.add(button, gbc);
+    
+ // Add non-random line generator button
+    button = new JButton("Non-random line generator");
+    setGridCoords(gbc, 0, 3);
+    button.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // Begin rendering random lines
+        buildAndDisplayNonRandomLinesScreen(frame);
         return;
       }
     });
@@ -109,7 +123,7 @@ public class PanelFactory {
     return frame;
   }
 
-  public static JFrame BuildAndDisplayDataTypesMenu(JFrame frame) {
+  public static JFrame buildAndDisplayDataTypesMenu(JFrame frame) {
 
     // Clean frame to make space to build new frame
     frame.getContentPane().removeAll();
@@ -125,68 +139,68 @@ public class PanelFactory {
     frame.add(panel, gbc);
 
     // String
-    SetAll(gbc, 0, 0, 3, 1, 0.5, 0.5);
+    setAll(gbc, 0, 0, 3, 1, 0.5, 0.5);
     JLabel textLabel = new JLabel("String");
-    SetFont(textLabel, "Arial", 15, true);
+    setFont(textLabel, "Arial", 15, true);
     panel.add(textLabel, gbc);
 
-    SetAll(gbc, 0, 1, 1, 1, 0.5, 0.5);
+    setAll(gbc, 0, 1, 1, 1, 0.5, 0.5);
     textLabel = new JLabel("A String is a collection of chars.");
-    SetFont(textLabel, "Arial", 12, false);
+    setFont(textLabel, "Arial", 12, false);
     panel.add(textLabel, gbc);
 
     // Int
-    SetAll(gbc, 0, 3, 3, 1, 0.5, 0.5);
+    setAll(gbc, 0, 3, 3, 1, 0.5, 0.5);
     textLabel = new JLabel("Integer (int)");
-    SetFont(textLabel, "Arial", 15, true);
+    setFont(textLabel, "Arial", 15, true);
     panel.add(textLabel, gbc);
 
-    SetAll(gbc, 0, 4, 1, 1, 0.5, 0.5);
+    setAll(gbc, 0, 4, 1, 1, 0.5, 0.5);
     textLabel = new JLabel("An int is a whole number.");
-    SetFont(textLabel, "Arial", 12, false);
+    setFont(textLabel, "Arial", 12, false);
     panel.add(textLabel, gbc);
 
     // Double
-    SetAll(gbc, 0, 6, 3, 1, 0.5, 0.5);
+    setAll(gbc, 0, 6, 3, 1, 0.5, 0.5);
     textLabel = new JLabel("Double");
-    SetFont(textLabel, "Arial", 15, true);
+    setFont(textLabel, "Arial", 15, true);
     panel.add(textLabel, gbc);
 
-    SetAll(gbc, 0, 7, 1, 1, 0.5, 0.5);
+    setAll(gbc, 0, 7, 1, 1, 0.5, 0.5);
     textLabel = new JLabel("A double is a 64-bit number with a fractional element.");
-    SetFont(textLabel, "Arial", 12, false);
+    setFont(textLabel, "Arial", 12, false);
     panel.add(textLabel, gbc);
 
     // Float
-    SetAll(gbc, 0, 9, 3, 1, 0.5, 0.5);
+    setAll(gbc, 0, 9, 3, 1, 0.5, 0.5);
     textLabel = new JLabel("Float");
-    SetFont(textLabel, "Arial", 15, true);
+    setFont(textLabel, "Arial", 15, true);
     panel.add(textLabel, gbc);
 
-    SetAll(gbc, 0, 10, 1, 1, 0.5, 0.5);
+    setAll(gbc, 0, 10, 1, 1, 0.5, 0.5);
     textLabel = new JLabel("A float is a 32-bit number with a fractional element.");
-    SetFont(textLabel, "Arial", 12, false);
+    setFont(textLabel, "Arial", 12, false);
     panel.add(textLabel, gbc);
 
     // Bool
-    SetAll(gbc, 0, 12, 3, 1, 0.5, 0.5);
+    setAll(gbc, 0, 12, 3, 1, 0.5, 0.5);
     textLabel = new JLabel("Boolean");
-    SetFont(textLabel, "Arial", 15, true);
+    setFont(textLabel, "Arial", 15, true);
     panel.add(textLabel, gbc);
 
-    SetAll(gbc, 0, 13, 1, 1, 0.5, 0.5);
+    setAll(gbc, 0, 13, 1, 1, 0.5, 0.5);
     textLabel = new JLabel("A boolean is a true / false statement.");
-    SetFont(textLabel, "Arial", 12, false);
+    setFont(textLabel, "Arial", 12, false);
     panel.add(textLabel, gbc);
 
     // Back button
-    SetAll(gbc, 0, 17, 1, 1, 0.5, 0.5);
+    setAll(gbc, 0, 17, 1, 1, 0.5, 0.5);
     JButton button = new JButton("Back");
     button.addActionListener(new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        BuildAndDisplayMainMenu(frame);
+        buildAndDisplayMainMenu(frame);
         return;
       }
 
@@ -199,49 +213,59 @@ public class PanelFactory {
     return frame;
   }
 
-  public static JFrame BuildAndDisplayRandomLinesScreen(JFrame frame) {
-    eventDriverInstance.BeginListeningTo(Events.KEYPRESS);
-    eventDriverInstance.RunningRandLine();
+  public static JFrame buildAndDisplayRandomLinesScreen(JFrame frame) {
+    eventDriverInstance.beginListeningTo(Events.KEYPRESS);
+    eventDriverInstance.runningRandLine();
+    mainInstance.setLineStyle(true);
+    mainInstance.start();
+
+    return frame;
+  }
+
+  public static JFrame buildAndDisplayNonRandomLinesScreen(JFrame frame) {
+    eventDriverInstance.beginListeningTo(Events.KEYPRESS);
+    eventDriverInstance.runningNonRandLine();
+    mainInstance.setLineStyle(false);
     mainInstance.start();
 
     return frame;
   }
 
   // Methods to make code cleaner
-  public static JLabel SetFont(JLabel label, String font) {
+  public static JLabel setFont(JLabel label, String font) {
 
     label.setFont(new Font(font, Font.PLAIN, 16));
 
     return label;
   }
   
-  public static JLabel SetFont(JLabel label, String font, int size) {
+  public static JLabel setFont(JLabel label, String font, int size) {
 
     label.setFont(new Font(font, Font.PLAIN, size));
 
     return label;
   }
   
-  public static JLabel SetFont(JLabel label, String font, int size, boolean bBoldText) {
+  public static JLabel setFont(JLabel label, String font, int size, boolean bBoldText) {
 
     label.setFont(new Font(font, bBoldText ? Font.BOLD : Font.PLAIN, size));
 
     return label;
   }
 
-  public static GridBagConstraints SetGridCoords(GridBagConstraints gbc, int x, int y) {
+  public static GridBagConstraints setGridCoords(GridBagConstraints gbc, int x, int y) {
     gbc.gridx = x;
     gbc.gridy = y;
     return gbc;
   }
 
-  public static GridBagConstraints SetWeights(GridBagConstraints gbc, double x, double y) {
+  public static GridBagConstraints setWeights(GridBagConstraints gbc, double x, double y) {
     gbc.weightx = x;
     gbc.weighty = y;
     return gbc;
   }
 
-  public static GridBagConstraints SetSize(GridBagConstraints gbc, int width, int height) {
+  public static GridBagConstraints setSize(GridBagConstraints gbc, int width, int height) {
     if (width != -1)
       gbc.gridwidth = width;
     if (height != -1)
@@ -249,7 +273,7 @@ public class PanelFactory {
     return gbc;
   }
 
-  public static GridBagConstraints SetAll(GridBagConstraints gbc, int gridx, int gridy,
+  public static GridBagConstraints setAll(GridBagConstraints gbc, int gridx, int gridy,
       int gridwidth, int gridheight, double weightx, double weighty) {
     gbc.gridx = gridx;
     gbc.gridy = gridy;

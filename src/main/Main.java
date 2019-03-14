@@ -31,13 +31,13 @@ public class Main implements Runnable {
   private JFrame window;
   private EventDriver eventDriver;
   private Thread thread;
-  private boolean bRunning = false;
+  private boolean running = false;
   private boolean useRandomLines = false;
   private RandomLine[] randomLines = {
-      new RandomLine(5, 20, 80, 2, Color.red),
-      new RandomLine(80, 2, 5, 20, Color.blue),
-      new RandomLine(120, 120, 0, 0, Color.cyan),
-      new RandomLine(90, 90, 95, 95, Color.orange)
+      new RandomLine(0, 0, 200, 200, Color.red),
+      new RandomLine(200, 0, 0, 100, Color.blue),
+      new RandomLine(720, 600, 0, 0, Color.cyan),
+      new RandomLine(90, 90, 195, 195, Color.orange)
   };
 
   // The "final" keyword makes it so the program cannot change the value of the variable.
@@ -56,8 +56,8 @@ public class Main implements Runnable {
     eventDriver = new EventDriver(this, Events.NONE);
 
     // Create and load main menu
-    PanelFactory.UpdateInstance(this, eventDriver, window);
-    PanelFactory.BuildAndDisplayMainMenu(window);
+    PanelFactory.updateInstance(this, eventDriver, window);
+    PanelFactory.buildAndDisplayMainMenu(window);
 
     thread = new Thread(this);
   }
@@ -67,7 +67,7 @@ public class Main implements Runnable {
   }
 
   public void start() {
-    bRunning = true;
+    running = true;
     if (thread.getState() == Thread.State.TERMINATED) {
       thread = new Thread(this);
     }
@@ -76,7 +76,7 @@ public class Main implements Runnable {
   }
 
   public void stop() {
-    bRunning = false;
+    running = false;
     synchronized (thread) {
       try {
         thread.wait();
@@ -90,12 +90,12 @@ public class Main implements Runnable {
   public void run() {
     int frameCounter = 0;
     double resetCounter = 0.0;
-    TImer timer = new TImer();
+    Timer timer = new Timer();
 
     String testStr1 = "Howdy";
     String testStr2 = "Howdy";
 
-    while (bRunning) {
+    while (running) {
 
       timer.update(this);
       frameCounter++;
@@ -160,11 +160,13 @@ public class Main implements Runnable {
             r.nextInt(5) * (window.getHeight() / 4));
       }
     } else {
+      
       // Use non-random lines
       for (int i = 0; i < randomLines.length; i++) {
         RandomLine temp = randomLines[i];
         g.setColor(temp.getColor());
         g.drawLine(temp.getStartX(), temp.getStartY(), temp.getEndX(), temp.getEndY());
+        //System.out.println(temp.getStartX() + " " + temp.getStartY() + " " + temp.getEndX() + " " + temp.getEndY());
       }
     }
 
@@ -198,6 +200,10 @@ public class Main implements Runnable {
 
     g.dispose();
     bs.show();
+  }
+  
+  public void setLineStyle(boolean isRandom) {
+    useRandomLines = isRandom;
   }
 }
 
