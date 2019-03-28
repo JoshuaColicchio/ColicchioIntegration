@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 public class Player extends GameShip {
 
   private static long rateOfFire = 30;
+  private long damageTimer = -1;
   private double dmgBuff = 0;
   private long lastBulletShot = -1;
   private ImageView ship;
@@ -32,6 +33,11 @@ public class Player extends GameShip {
         : (Engine.getMouse().X >= Engine.getScene().getWidth() - (ship.getFitWidth() / 2))
             ? Engine.getScene().getWidth() - (ship.getFitWidth())
             : Engine.getMouse().X - ship.getFitWidth() / 2);
+    
+    if (damageTimer + 1000000000 > now)
+      super.iv.setOpacity((super.iv.getOpacity() == 0.5) ? 1 : 0.5);
+    else if (damageTimer + 1000000000 < now)
+      super.iv.setOpacity(1);
   }
 
   @Override
@@ -52,7 +58,10 @@ public class Player extends GameShip {
   @Override
   public void onTakeDamage(double dmg) {
     health -= dmg;
-    ship.setOpacity(100);
+    if (health <= 0)
+      onDestroyed();
+    else
+      damageTimer = System.nanoTime();
   }
 
   @Override

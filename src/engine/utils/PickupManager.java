@@ -26,11 +26,11 @@ public class PickupManager {
           lastSpawn = now;
           Random r = new Random();
           Pickup pickup = new Pickup(r.nextInt((int) Engine.getScene().getWidth()) - 50,
-              -(r.nextInt(50) + 50), pickupType.FIRERATE);
+              -(r.nextInt(50) + 50), pickupType.DMG);
           active.add(pickup);
           Engine.getRoot().getChildren().add(pickup.getIcon());
         }
-        
+
         for (Iterator<Pickup> it = active.iterator(); it.hasNext();) {
           Pickup p = it.next();
           if (p.marked()) {
@@ -38,7 +38,7 @@ public class PickupManager {
             it.remove();
             continue;
           }
-          
+
           p.getIcon().setCenterY(p.getIcon().getCenterY() + 3);
           if (p.getIcon().getCenterY() > Engine.getScene().getHeight() + p.getIcon().getRadius())
             p.mark();

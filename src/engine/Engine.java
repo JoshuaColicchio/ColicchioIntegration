@@ -95,7 +95,10 @@ public class Engine extends Application {
               }
             }
           } else { // can only hit player
-            
+            if (player.getShip().getBoundsInParent().intersects(b.circle().getBoundsInParent())) {
+              b.mark();
+              player.onTakeDamage(b.getDamage());
+            }
           }
         }
         

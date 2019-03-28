@@ -15,7 +15,6 @@ public class EnemyManager {
   private ArrayList<Enemy1> allEnemies = new ArrayList<>();
   
   public EnemyManager() {
-    System.out.println("Enemy Manager init");
     new AnimationTimer() {
       
       @Override
@@ -30,7 +29,7 @@ public class EnemyManager {
             enemy.update(now);
         }
         
-        if (allEnemies.size() < maxEnemyCount && now > lastSpawn + spawnRate + spawnRate) {
+        if (allEnemies.size() < maxEnemyCount && now > lastSpawn + spawnRate * 5) {
           lastSpawn = now;
           Random r = new Random();
           Enemy1 enemy = new Enemy1(r.nextInt((int)Engine.getScene().getWidth()) - 50, -(r.nextInt(50) + 50));
