@@ -6,14 +6,18 @@ import javafx.scene.layout.Pane;
 
 public class Background {
 
-  protected ImageView iv;
-  protected Pane root;
+  private ImageView iv;
+  private Pane root;
   private int variant;
   
   public Background(String img, int var) {
     iv = new ImageView(new Image(img));
     variant = var;
     prepScene();
+  }
+  
+  public ImageView getIV() {
+    return iv;
   }
 
   public void sendToStorage() {

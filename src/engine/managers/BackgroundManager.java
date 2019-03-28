@@ -3,8 +3,7 @@ package engine.managers;
 import java.util.ArrayList;
 import java.util.Random;
 import engine.classes.Background;
-import engine.classes.Engine;
-import javafx.scene.layout.Pane;
+import engine.Engine;
 
 public class BackgroundManager {
 
@@ -17,7 +16,7 @@ public class BackgroundManager {
 
   public BackgroundManager() {
     
-    Engine.getRoot().getChildren().addAll(bg1.iv, bg2.iv, bg3.iv, bg4.iv);
+    Engine.getRoot().getChildren().addAll(bg1.getIV(), bg2.getIV(), bg3.getIV(), bg4.getIV());
     bgList.add(bg1);
     bgList.add(bg2);
     bgList.add(bg3);
@@ -43,19 +42,19 @@ public class BackgroundManager {
 
   public void prepareScreen(boolean isInitial) {
     if (isInitial) {
-      bgList.get(onDisplay).iv.setY(-bgList.get(onDisplay).iv.getFitHeight() + 800);
+      bgList.get(onDisplay).getIV().setY(-bgList.get(onDisplay).getIV().getFitHeight() + 800);
     }
     else 
-      bgList.get(next).iv.setY(-bgList.get(next).iv.getFitHeight());
+      bgList.get(next).getIV().setY(-bgList.get(next).getIV().getFitHeight());
   }
 
   public void update() {
     try {
-      if (bgList.get(onDisplay).iv.getY() + 5 <= 0)
-        bgList.get(onDisplay).iv.setY(bgList.get(onDisplay).iv.getY() + 5);
-      else if (bgList.get(onDisplay).iv.getY() + 5 <= Engine.getScene().getHeight()) {
-        bgList.get(onDisplay).iv.setY(bgList.get(onDisplay).iv.getY() + 5);
-        bgList.get(next).iv.setY(bgList.get(next).iv.getY() + 5);
+      if (bgList.get(onDisplay).getIV().getY() + 5 <= 0)
+        bgList.get(onDisplay).getIV().setY(bgList.get(onDisplay).getIV().getY() + 5);
+      else if (bgList.get(onDisplay).getIV().getY() + 5 <= Engine.getScene().getHeight()) {
+        bgList.get(onDisplay).getIV().setY(bgList.get(onDisplay).getIV().getY() + 5);
+        bgList.get(next).getIV().setY(bgList.get(next).getIV().getY() + 5);
       }
       else {
         bgList.get(onDisplay).sendToStorage();
