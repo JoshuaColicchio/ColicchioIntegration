@@ -1,10 +1,10 @@
-package engine.utils;
+package engine.managers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import engine.Engine;
-import engine.Pickup;
+import engine.classes.Pickup;
 import javafx.animation.AnimationTimer;
 
 public class PickupManager {

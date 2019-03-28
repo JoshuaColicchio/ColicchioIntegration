@@ -1,4 +1,4 @@
-package engine.utils;
+package engine.classes;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

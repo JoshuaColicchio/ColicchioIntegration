@@ -1,10 +1,10 @@
 package ships;
 
 import java.util.Random;
-import engine.Bullet;
+import engine.classes.Bullet;
 import engine.Engine;
-import engine.Pickup;
-import engine.utils.BulletManager;
+import engine.classes.Pickup;
+import engine.managers.BulletManager;
 import javafx.scene.image.ImageView;
 
 public class Enemy1 extends GameShip {

@@ -1,8 +1,8 @@
-package engine.utils;
+package engine.managers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import engine.Bullet;
+import engine.classes.Bullet;
 import engine.Engine;
 import javafx.animation.AnimationTimer;
 

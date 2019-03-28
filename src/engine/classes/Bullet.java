@@ -1,4 +1,4 @@
-package engine;
+package engine.classes;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

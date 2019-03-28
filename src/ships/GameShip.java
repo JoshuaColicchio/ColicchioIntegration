@@ -1,6 +1,6 @@
 package ships;
 
-import engine.Pickup;
+import engine.classes.Pickup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

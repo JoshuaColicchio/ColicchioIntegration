@@ -1,6 +1,12 @@
 package engine;
 
 import java.util.Iterator;
+import engine.classes.Bullet;
+import engine.classes.Pickup;
+import engine.managers.BackgroundManager;
+import engine.managers.BulletManager;
+import engine.managers.EnemyManager;
+import engine.managers.PickupManager;
 import engine.utils.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

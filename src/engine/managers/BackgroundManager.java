@@ -1,8 +1,9 @@
-package engine.utils;
+package engine.managers;
 
 import java.util.ArrayList;
 import java.util.Random;
-import engine.Engine;
+import engine.classes.Background;
+import engine.classes.Engine;
 import javafx.scene.layout.Pane;
 
 public class BackgroundManager {

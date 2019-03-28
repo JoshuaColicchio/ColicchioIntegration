@@ -1,6 +1,6 @@
-package engine;
+package engine.classes;
 
-import engine.utils.PickupManager.pickupType;
+import engine.managers.PickupManager.pickupType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
