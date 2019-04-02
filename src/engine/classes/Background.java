@@ -7,7 +7,6 @@ import javafx.scene.layout.Pane;
 public class Background {
 
   private ImageView iv;
-  private Pane root;
   private int variant;
   
   public Background(String img, int var) {
@@ -22,7 +21,7 @@ public class Background {
 
   public void sendToStorage() {
     // this method moves the imageview off screen to be called upon later
-    iv.setY(-100000);
+    iv.setY(-iv.getFitHeight());
   }
 
   public void prepScene() {

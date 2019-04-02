@@ -1,16 +1,15 @@
 package engine.classes;
 
-import engine.managers.PickupManager.pickupType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Pickup {
   
   private Circle pickupIcon;
-  private pickupType type;
+  private int type;
   private boolean marked = false;
   
-  public Pickup(double x, double y, pickupType typ) {
+  public Pickup(double x, double y, int typ) {
     type = typ;
     pickupIcon = new Circle(50);
     pickupIcon.setFill(getColorFromType());
@@ -22,7 +21,7 @@ public class Pickup {
     return pickupIcon;
   }
   
-  public pickupType getType() {
+  public int getType() {
     return type;
   }
   
@@ -36,11 +35,11 @@ public class Pickup {
 
   public Color getColorFromType() {
     switch (type) {
-      case HEALTH:
+      case 0:
         return Color.RED;
-      case DMG:
+      case 1:
         return Color.DARKORANGE;
-      case FIRERATE:
+      case 2:
         return Color.CORNFLOWERBLUE;
       default:
         return Color.BLACK;

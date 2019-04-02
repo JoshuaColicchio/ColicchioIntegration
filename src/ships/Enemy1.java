@@ -4,7 +4,6 @@ import java.util.Random;
 import engine.classes.Bullet;
 import engine.Engine;
 import engine.classes.Pickup;
-import engine.managers.BulletManager;
 import javafx.scene.image.ImageView;
 
 public class Enemy1 extends GameShip {
@@ -34,10 +33,10 @@ public class Enemy1 extends GameShip {
   public void fire() {
     Bullet b = new Bullet(5, 10, 5, 1, super.iv.getX() + super.iv.getFitWidth() / 4,
         super.iv.getY() + 3 * super.iv.getFitHeight() / 4, false);
-    BulletManager.registerBullet(b);
+    Engine.getGameLoop().registerBullet(b);
     b = new Bullet(5, 10, 5, 1, super.iv.getX() + 3 * super.iv.getFitWidth() / 4,
         super.iv.getY() + 3 * super.iv.getFitHeight() / 4, false);
-    BulletManager.registerBullet(b);
+    Engine.getGameLoop().registerBullet(b);
   }
 
   @Override

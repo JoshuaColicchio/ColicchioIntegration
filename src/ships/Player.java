@@ -3,7 +3,6 @@ package ships;
 import engine.classes.Bullet;
 import engine.Engine;
 import engine.classes.Pickup;
-import engine.managers.BulletManager;
 import javafx.scene.image.ImageView;
 
 public class Player extends GameShip {
@@ -49,10 +48,10 @@ public class Player extends GameShip {
 
     Bullet b = new Bullet(5 + dmgBuff, -5, 5, 0, ship.getX() + ship.getFitWidth() / 4,
         ship.getY() + ship.getFitHeight() / 4, true);
-    BulletManager.registerBullet(b);
+    Engine.getGameLoop().registerBullet(b);
     b = new Bullet(5, -5, 5, 0, ship.getX() + 3 * ship.getFitWidth() / 4,
         ship.getY() + ship.getFitHeight() / 4, true);
-    BulletManager.registerBullet(b);
+    Engine.getGameLoop().registerBullet(b);
   }
 
   @Override
@@ -67,13 +66,13 @@ public class Player extends GameShip {
   @Override
   public void onPickup(Pickup p) {
     switch (p.getType()) {
-      case HEALTH:
+      case 0:
         health += 10;
         break;
-      case DMG:
+      case 1:
         dmgBuff += 5;
         break;
-      case FIRERATE:
+      case 2:
         rateOfFire = rateOfFire / 2;
         break;
     }
