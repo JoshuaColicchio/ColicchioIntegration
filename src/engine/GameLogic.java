@@ -6,6 +6,7 @@ import java.util.Random;
 import engine.classes.Background;
 import engine.classes.Bullet;
 import engine.classes.Pickup;
+import javafx.animation.AnimationTimer;
 import ships.Enemy1;
 import ships.Player;
 
@@ -52,6 +53,20 @@ public class GameLogic {
 
     // Create player
     player = new Player();
+
+    // Start looping
+    new AnimationTimer() {
+      @Override
+      public void handle(long now) {
+        updateBackground();
+        updateBullets();
+        updateEnemies(now);
+        updatePickups(now);
+        player.update(now);
+        if (playerFiring)
+          player.fire();
+      }
+    }.start();
   }
 
   // Methods relating to background system
@@ -184,16 +199,5 @@ public class GameLogic {
   // Methods related to player management
   public void playerFiring(boolean f) {
     playerFiring = f;
-  }
-
-  // Main update method (calls others)
-  public void update(long now) {
-    updateBackground();
-    updateBullets();
-    updateEnemies(now);
-    updatePickups(now);
-    player.update(now);
-    if (playerFiring)
-      player.fire();
   }
 }
