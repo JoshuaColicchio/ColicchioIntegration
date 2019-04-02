@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class Engine extends Application {
 
-  public final int DEF_WIDTH = 600, DEF_HEIGHT = 800;
+  private final int DEF_WIDTH = 600, DEF_HEIGHT = 800;
   private static GameLogic logicLoop;
 
   private static Pane root = new Pane();
@@ -42,13 +42,6 @@ public class Engine extends Application {
     s.setTitle("Colicchio Integration");
 
     Scene scene = new Scene(new BorderPane(root), DEF_WIDTH, DEF_HEIGHT);
-
-    Rectangle bounds = new Rectangle();
-    bounds.widthProperty().bind(scene.widthProperty());
-    bounds.heightProperty().bind(scene.heightProperty());
-
-    root.setClip(bounds);
-
     logicLoop = new GameLogic();
     initMouseListener();
 
