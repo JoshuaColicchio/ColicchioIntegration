@@ -49,10 +49,10 @@ public class InputHandler {
               MouseInfo.getPointerInfo().getLocation().y);
           Engine.getGameLoop().pauseGame();
         } else if (Engine.getGameState() == GameState.GAMEOVER) {
-          Engine.getGameLoop().startGame();
+          Engine.displayDifficultyOption();
         }
       } else if (Engine.getGameState() == GameState.GAMEOVER) {
-        Engine.getGameLoop().startGame();
+        Engine.displayDifficultyOption();
       }
     });
   }

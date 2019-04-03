@@ -82,6 +82,7 @@ public class GameLogic {
           Engine.enableText("Paused");
         } else if (Engine.getGameState() == GameState.GAMEOVER) {
           Engine.enableText("Game over!\nPress any\nbutton to restart");
+          stopAnimationTimer();
         }
       }
     };
@@ -122,6 +123,7 @@ public class GameLogic {
     Engine.disableText();
     player.setHealth(Engine.getDifficulty());
     Engine.setGameState(GameState.RUNNING);
+    startAnimationTimer();
   }
 
   public void gameOver() {

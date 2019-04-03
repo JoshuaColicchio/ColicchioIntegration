@@ -22,7 +22,7 @@ public class Player extends GameShip {
     Engine.getRoot().getChildren().add(ship);
     ship.setY(Engine.getScene().getHeight() - ship.getFitHeight());
   }
-  
+
   public Player(String customImg) {
     super(customImg, rateOfFire, 100);
     ship = iv;
@@ -31,19 +31,19 @@ public class Player extends GameShip {
     Engine.getRoot().getChildren().add(ship);
     ship.setY(Engine.getScene().getHeight() - ship.getFitHeight());
   }
-  
+
   public ImageView getShip() {
     return ship;
   }
-  
+
   public void setShip(ImageView newShip) {
     ship = newShip;
   }
-  
+
   public void setHealth(double hlth) {
     health = hlth;
   }
-  
+
   public void onPickup(Pickup p) {
     switch (p.getType()) {
       case 0:
@@ -61,22 +61,26 @@ public class Player extends GameShip {
 
   @Override
   public void update(long now) {
-    ship.setX((Engine.getInput().getMousePos().X <= (ship.getFitWidth() / 2)) ? 0
-        : (Engine.getInput().getMousePos().X >= Engine.getScene().getWidth() - (ship.getFitWidth() / 2))
-            ? Engine.getScene().getWidth() - (ship.getFitWidth())
-            : Engine.getInput().getMousePos().X - ship.getFitWidth() / 2);
-    
-    if (damageTimer + 1000000000 > now)
-      super.iv.setOpacity((super.iv.getOpacity() == 0.5) ? 1 : 0.5);
-    else if (damageTimer + 1000000000 < now)
-      super.iv.setOpacity(1);
+    try {
+      ship.setX((Engine.getInput().getMousePos().X <= (ship.getFitWidth() / 2)) ? 0
+          : (Engine.getInput().getMousePos().X >= Engine.getScene().getWidth()
+              - (ship.getFitWidth() / 2)) ? Engine.getScene().getWidth() - (ship.getFitWidth())
+                  : Engine.getInput().getMousePos().X - ship.getFitWidth() / 2);
+
+      if (damageTimer + 1000000000 > now)
+        super.iv.setOpacity((super.iv.getOpacity() == 0.5) ? 1 : 0.5);
+      else if (damageTimer + 1000000000 < now)
+        super.iv.setOpacity(1);
+    } catch (Exception ex) {
+      System.out.println(ex);
+    }
   }
 
   @Override
   public void fire() {
     if (System.nanoTime() < lastBulletShot + (rateOfFire * (1_000_000_000 / 60)))
       return;
-    
+
     lastBulletShot = System.nanoTime();
 
     Bullet b = new Bullet(5 + dmgBuff, -5, 5, 0, ship.getX() + ship.getFitWidth() / 4,

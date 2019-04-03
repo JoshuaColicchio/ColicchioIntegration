@@ -74,7 +74,6 @@ public class Engine extends Application {
   }
   
   public static void displayDifficultyOption() {
-    logicLoop.stopAnimationTimer();
     difficulty = new TextInputDialog("1(hard) - 100(easy)");
     difficulty.setTitle("Please select a difficulty");
     difficulty.setHeaderText("Input your starting health (1-100)");
@@ -91,7 +90,7 @@ public class Engine extends Application {
             displayDifficultyOption();
           } else {
             startTime = System.nanoTime();
-            logicLoop.startAnimationTimer();
+            logicLoop.startGame();
           }
         } catch (Exception ex) {
           displayDifficultyOption();
