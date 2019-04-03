@@ -11,7 +11,7 @@ public class Pickup {
   
   public Pickup(double x, double y, int typ) {
     type = typ;
-    pickupIcon = new Circle(50);
+    pickupIcon = new Circle(10);
     pickupIcon.setFill(getColorFromType());
     pickupIcon.setCenterX(x);
     pickupIcon.setCenterY(y);

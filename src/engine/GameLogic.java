@@ -3,12 +3,15 @@ package engine;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import engine.Engine.GameState;
 import engine.classes.Background;
 import engine.classes.Bullet;
 import engine.classes.Pickup;
 import javafx.animation.AnimationTimer;
-import ships.Enemy1;
-import ships.Player;
+import ships.baseclasses.EnemyShip;
+import ships.enemies.Enemy1;
+import ships.enemies.Enemy2;
+import ships.player.Player;
 
 public class GameLogic {
 
@@ -29,15 +32,19 @@ public class GameLogic {
   // Variables relating to enemy management
   private int maxOnScreenEnemies = 5;
   private long lastEnemySpawn = -1, enemySpawnRate = 1_000_000_000;
-  private ArrayList<Enemy1> onScreenEnemies = new ArrayList<>();
+  private ArrayList<EnemyShip> onScreenEnemies = new ArrayList<>();
 
   // Variables relating to pickup management
   private int maxOnScreenPickups = 2;
   private long lastPickupSpawn = -1, pickupSpawnRate = 1_000_000_000;
+  private boolean canSpawnPickup = true; // true by default
   private ArrayList<Pickup> onScreenPickups = new ArrayList<>();
 
   // Variables relating to bullet management
   private ArrayList<Bullet> onScreenBullets = new ArrayList<>();
+
+  // Animation Timer
+  private AnimationTimer timer;
 
   public GameLogic() {
     // Add all backgrounds to engine root
@@ -55,18 +62,78 @@ public class GameLogic {
     player = new Player();
 
     // Start looping
-    new AnimationTimer() {
+    timer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        updateBackground();
-        updateBullets();
-        updateEnemies(now);
-        updatePickups(now);
-        player.update(now);
-        if (playerFiring)
-          player.fire();
+        Engine.getRoot().requestFocus();
+        if (Engine.getGameState() == GameState.LOADING) {
+          if (Engine.getStartTime() + 1000000000 < now)
+            startGame();
+        } else if (Engine.getGameState() == GameState.RUNNING) {
+          Engine.disableText();
+          updateBackground();
+          updateBullets();
+          updateEnemies(now);
+          updatePickups(now);
+          player.update(now);
+          if (playerFiring)
+            player.fire();
+        } else if (Engine.getGameState() == GameState.PAUSED) {
+          Engine.enableText("Paused");
+        } else if (Engine.getGameState() == GameState.GAMEOVER) {
+          Engine.enableText("Game over!\nPress any\nbutton to restart");
+        }
       }
-    }.start();
+    };
+  }
+
+  // Methods relating to pause system
+  public void pauseGame() {
+    for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
+      EnemyShip e = it.next();
+      if (e.getClass() == Enemy2.class) {
+        Enemy2 en = (Enemy2) e;
+        en.setPauseTime(System.nanoTime());
+      }
+    }
+  }
+
+  public void cleanup() {
+    for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
+      EnemyShip e = it.next();
+      Engine.getRoot().getChildren().remove(e.getImageView());
+      it.remove();
+    }
+    
+    for (Iterator<Pickup> it = onScreenPickups.iterator(); it.hasNext();) {
+      Pickup p = it.next();
+      Engine.getRoot().getChildren().remove(p.getIcon());
+      it.remove();
+    }
+    
+    for (Iterator<Bullet> it = onScreenBullets.iterator(); it.hasNext();) {
+      Bullet b = it.next();
+      Engine.getRoot().getChildren().remove(b.circle());
+      it.remove();
+    }
+  }
+  
+  public void startGame() {    
+    Engine.disableText();
+    player.setHealth(Engine.getDifficulty());
+    Engine.setGameState(GameState.RUNNING);
+  }
+
+  public void gameOver() {
+    Engine.setGameState(GameState.GAMEOVER);
+  }
+
+  public void stopAnimationTimer() {
+    timer.stop();
+  }
+
+  public void startAnimationTimer() {
+    timer.start();
   }
 
   // Methods relating to background system
@@ -93,6 +160,9 @@ public class GameLogic {
   }
 
   public void updateBackground() {
+    if (Engine.getGameState() == GameState.GAMEOVER)
+      return;
+
     try {
       if (currBG.getIV().getY() + 5 <= 0)
         currBG.getIV().setY(currBG.getIV().getY() + 5);
@@ -111,83 +181,130 @@ public class GameLogic {
 
   // Methods relating to enemy management
   public void updateEnemies(long now) {
+    if (Engine.getGameState() == GameState.GAMEOVER)
+      return;
+
     if (onScreenEnemies.size() < maxOnScreenEnemies && now > lastEnemySpawn + enemySpawnRate * 2) {
       lastEnemySpawn = now;
-      Enemy1 e = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50);
+      EnemyShip e = null;
+      switch (rand.nextInt(2)) {
+        case 0:
+          e = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50);
+          break;
+        case 1:
+          e = new Enemy2(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50);
+          break;
+      }
       onScreenEnemies.add(e);
-      Engine.getRoot().getChildren().add(e.iv());
+      Engine.getRoot().getChildren().add(e.getImageView());
     }
-
-    for (Iterator<Enemy1> it = onScreenEnemies.iterator(); it.hasNext();) {
-      Enemy1 e = it.next();
-      if (e.marked()) {
-        Engine.getRoot().getChildren().remove(e.iv());
-        it.remove();
-      } else
-        e.update(now);
+    try {
+      for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
+        EnemyShip e = it.next();
+        if (e.markForRemoval()) {
+          Engine.getRoot().getChildren().remove(e.getImageView());
+          it.remove();
+        } else
+          e.update(now);
+      }
+    } catch (Exception ex) {
+      System.out.println(ex);
     }
   }
 
   // Methods relating to pickup management
   public void updatePickups(long now) {
-    if (onScreenPickups.size() < maxOnScreenPickups
-        && now > lastPickupSpawn + pickupSpawnRate * 15) {
-      lastPickupSpawn = now;
-      Pickup pu =
-          new Pickup(rand.nextInt((int) Engine.getScene().getWidth() - 50), -50, rand.nextInt(3));
-      onScreenPickups.add(pu);
-      Engine.getRoot().getChildren().add(pu.getIcon());
+    if (Engine.getGameState() == GameState.GAMEOVER)
+      return;
+
+    if (onScreenPickups.size() < maxOnScreenPickups && now > lastPickupSpawn + pickupSpawnRate * 15
+        && canSpawnPickup == false) {
+      canSpawnPickup = true;
     }
 
-    for (Iterator<Pickup> it = onScreenPickups.iterator(); it.hasNext();) {
-      Pickup p = it.next();
-      if (p.marked()) {
-        Engine.getRoot().getChildren().remove(p.getIcon());
-        it.remove();
-      } else {
-        p.getIcon().setCenterY(p.getIcon().getCenterY() + 3);
-        if (p.getIcon().getBoundsInParent().intersects(player.getShip().getBoundsInParent())) {
-          p.mark();
-          player.onPickup(p);
-        } else if (p.getIcon().getCenterY() > Engine.getScene().getHeight()
-            + p.getIcon().getRadius())
-          p.mark();
-      }
+    if (canSpawnPickup && now > lastPickupSpawn + 30 * 1_000_000_000) {
+      spawnPickup();
     }
+    try {
+      for (Iterator<Pickup> it = onScreenPickups.iterator(); it.hasNext();) {
+        Pickup p = it.next();
+        if (p.marked()) {
+          Engine.getRoot().getChildren().remove(p.getIcon());
+          it.remove();
+        } else {
+          p.getIcon().setCenterY(p.getIcon().getCenterY() + 3);
+          if (p.getIcon().getBoundsInParent().intersects(player.getShip().getBoundsInParent())) {
+            p.mark();
+            player.onPickup(p);
+          } else if (p.getIcon().getCenterY() > Engine.getScene().getHeight()
+              + p.getIcon().getRadius())
+            p.mark();
+        }
+      }
+    } catch (Exception ex) {
+      System.out.println(ex);
+    }
+  }
+
+  public void spawnPickup(double x, double y) {
+    int lotto = rand.nextInt(151);
+    if (canSpawnPickup && lotto >= 100 && lotto <= 130) {
+      Pickup pu = new Pickup(x, y, rand.nextInt(3));
+      onScreenPickups.add(pu);
+      Engine.getRoot().getChildren().add(pu.getIcon());
+      lastPickupSpawn = System.nanoTime();
+      canSpawnPickup = false;
+    }
+  }
+
+  public void spawnPickup() {
+    Pickup pu =
+        new Pickup(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50, rand.nextInt(3));
+    onScreenPickups.add(pu);
+    Engine.getRoot().getChildren().add(pu.getIcon());
+    lastPickupSpawn = System.nanoTime();
+    canSpawnPickup = false;
   }
 
   // Methods relating to bullet management
   public void updateBullets() {
-    for (Iterator<Bullet> it = onScreenBullets.iterator(); it.hasNext();) {
-      Bullet b = it.next();
-      if (b.marked()) {
-        Engine.getRoot().getChildren().remove(b.circle());
-        it.remove();
-      } else {
-        if (b.circle().getCenterY() + b.getSpeed() < Engine.getScene().getHeight()
-            && b.circle().getCenterY() + b.getSpeed() > 0) { // bullet within bounds
-          b.circle().setCenterY(b.circle().getCenterY() + b.getSpeed());
+    if (Engine.getGameState() == GameState.GAMEOVER)
+      return;
+    try {
+      for (Iterator<Bullet> it = onScreenBullets.iterator(); it.hasNext();) {
+        Bullet b = it.next();
+        if (b.marked()) {
+          Engine.getRoot().getChildren().remove(b.circle());
+          it.remove();
+        } else {
+          if (b.circle().getCenterY() + b.getSpeed() < Engine.getScene().getHeight()
+              && b.circle().getCenterY() + b.getSpeed() > 0) { // bullet within bounds
+            b.circle().setCenterY(b.circle().getCenterY() + b.getSpeed());
 
-          // check for collision
-          if (b.getFriendly()) { // can only hit enemies
-            for (Iterator<Enemy1> t = onScreenEnemies.iterator(); t.hasNext();) {
-              Enemy1 e = t.next();
-              if (b.circle().getBoundsInParent().intersects(e.iv().getBoundsInParent())) {
-                // bullet hit, cleanup and deal damage
+            // check for collision
+            if (b.getFriendly()) { // can only hit enemies
+              for (Iterator<EnemyShip> t = onScreenEnemies.iterator(); t.hasNext();) {
+                EnemyShip e = t.next();
+                if (b.circle().getBoundsInParent()
+                    .intersects(e.getImageView().getBoundsInParent())) {
+                  // bullet hit, cleanup and deal damage
+                  b.mark();
+                  e.onTakeDamage(b.getDamage());
+                }
+              }
+            } else { // can only hit player
+              if (b.circle().getBoundsInParent().intersects(player.getShip().getBoundsInParent())) {
                 b.mark();
-                e.onTakeDamage(b.getDamage());
+                player.onTakeDamage(b.getDamage());
               }
             }
-          } else { // can only hit player
-            if (b.circle().getBoundsInParent().intersects(player.getShip().getBoundsInParent())) {
-              b.mark();
-              player.onTakeDamage(b.getDamage());
-            }
+          } else {
+            b.mark();
           }
-        } else {
-          b.mark();
         }
       }
+    } catch (Exception ex) {
+      System.out.println(ex);
     }
   }
 
