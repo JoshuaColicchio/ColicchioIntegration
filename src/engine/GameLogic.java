@@ -196,7 +196,9 @@ public class GameLogic {
       lastEnemySpawn = now;
       EnemyShip e = null;
       switch (rand.nextInt(2)) {
-        case 0:
+        case 0: // Casting in Java is when you want the compiler to treat one variable type as another
+          // Like below, where I tell Java to treat the Engine.getScene().getWidth() variable, which
+          // is a double, as an int.
           e = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50, playerScore / 5000);
           break;
         case 1:
@@ -326,7 +328,8 @@ public class GameLogic {
     playerFiring = f;
   }
 
-  public void onEnemyDestroyed(int score) {
+  public boolean onEnemyDestroyed(int score) {
     playerScore += score;
+    return true;
   }
 }

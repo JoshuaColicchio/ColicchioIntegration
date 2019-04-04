@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 public class Engine extends Application {
 
+  // The "final" keyword makes it so the program cannot change the value of the variable.
+  // So if I tried 'DEF_WIDTH = 5' anywhere in this program, it would throw a compiler error.
   private final int DEF_WIDTH = 600, DEF_HEIGHT = 800;
   private static GameLogic logicLoop;
   private static InputHandler input;
@@ -55,34 +57,35 @@ public class Engine extends Application {
   public static GameLogic getGameLoop() {
     return logicLoop;
   }
-  
+
   public static InputHandler getInput() {
     return input;
   }
-  
+
   public static long getStartTime() {
     return startTime;
   }
-  
+
   public static void disableText() {
     textDisplay.setOpacity(0);
   }
-  
+
   public static void enableText(String text) {
     textDisplay.setText(text);
     textDisplay.setOpacity(1);
   }
-  
+
   public static double getDifficulty() {
     return difficultyHealth;
   }
-  
+
   public static void displayDifficultyOption() {
     difficulty = new TextInputDialog("1(hard) - 100(easy)");
-    difficulty.setTitle("Please select a difficulty");
+    difficulty
+        .setTitle("Hello, and welcome to my integration project!\nPlease select a difficulty");
     difficulty.setHeaderText("Input your starting health (1-100)");
     difficulty.setContentText("Starting health: ");
-    
+
     Optional<String> result = difficulty.showAndWait();
     if (!result.isPresent())
       displayDifficultyOption();
@@ -103,7 +106,7 @@ public class Engine extends Application {
       });
     }
   }
-  
+
   public static void initScoreDisplay() {
     scoreDisplay.setFont(new Font("Comic Sans", 24));
     scoreDisplay.setTextFill(Color.WHITE);
@@ -111,7 +114,7 @@ public class Engine extends Application {
     scoreDisplay.setLayoutY(0);
     root.getChildren().add(scoreDisplay);
   }
-  
+
   public static void updateScore(String txt) {
     scoreDisplay.setText(txt);
   }
@@ -159,7 +162,7 @@ public class Engine extends Application {
   }
 
   @Override
-  public void start(Stage s) {    
+  public void start(Stage s) {
     startTime = System.nanoTime();
     gState = GameState.LOADING;
     Random r = new Random(); // only used for PSI 3 requirement
@@ -174,19 +177,58 @@ public class Engine extends Application {
 
     s.setTitle("Colicchio Integration");
     Scene scene = new Scene(new BorderPane(root), DEF_WIDTH, DEF_HEIGHT);
-    
+
     input = new InputHandler();
     logicLoop = new GameLogic();
-    
+
     textDisplay.setFont(new Font("Arial", 48));
     textDisplay.setTextFill(Color.WHITE);
     textDisplay.setText("Loading...");
     root.getChildren().add(root.getChildren().size(), textDisplay);
     textDisplay.setLayoutX(DEF_WIDTH / 2 - 200);
     textDisplay.setLayoutY(DEF_HEIGHT / 8);
-    
+
     s.setScene(scene);
     s.show();
     displayDifficultyOption();
   }
+  
+  public void psiCompliance() {
+    String s1 = "Hello";
+    String s2 = "Hello";
+    boolean b1 = (s1 == s2);
+    boolean b2 = (s1.equals(s2));
+    int i1 = s1.compareTo(s2);
+    System.out.println("Comparing \"" + s1 + "\" and \"" + s2 + "\"");
+    System.out.println("Using == " + b1 + "\nUsing .equals " + b2 + "\nUsing compareTo " + i1);
+  }
 }
+
+/*
+ * A variable in Java is like a box that you can store things in. The type of thing you can store in
+ * the box depends on the type of box that you create. Realistically, a variable is a name for a
+ * section of memory.
+ *
+ * Scope in Java is the level of access a variable has / where a variable 'exists'. For example, if
+ * you declare a variable inside of a method, that variable is scoped only in that method, not
+ * outside of it.
+ */
+
+/*
+ * List of all default data types in java
+ * 
+ * String - A collection of characters Character (char) - A single character (Ex: a, A, b, B...)
+ * Integer (int) - Any whole number Floating Point Number (float) - A decimal number with 32 bit
+ * precision Double Precision Floating Point (double) - A decimal number with 64 bit precision
+ * Boolean (boolean) - A true or false variable
+ */
+
+/*
+ * A variable in Java is like a box that you can store things in. The type of thing you can store in
+ * the box depends on the type of box that you create. Realistically, a variable is a name for a
+ * section of memory.
+ *
+ * Scope in Java is the level of access a variable has / where a variable 'exists'. For example, if
+ * you declare a variable inside of a method, that variable is scoped only in that method, not
+ * outside of it.
+ */

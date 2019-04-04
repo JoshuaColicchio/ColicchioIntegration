@@ -24,6 +24,7 @@ public class Enemy2 extends EnemyShip {
     swayDir = (rand.nextInt(2) == 0) ? -1 : 1;
   }
 
+  // Below, public void setPauseTime is a header, and long time is the parameter
   public void setPauseTime(long time) {
     pausedTime = time;
   }
@@ -47,6 +48,7 @@ public class Enemy2 extends EnemyShip {
   
   @Override
   public void onDestroyed() {
+    // Below, Engine.getGameLoop().onEnemyDestroyed is a method call, and 1000 is the argument
     Engine.getGameLoop().onEnemyDestroyed(1000);
     super.onDestroyed();
   }
