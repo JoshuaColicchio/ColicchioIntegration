@@ -21,6 +21,7 @@ public class GameLogic {
   // Variables relating to player
   private Player player;
   private boolean playerFiring = false;
+  private int playerScore = 0;
 
   // Variables relating to background scroller
   private Background bg1 = new Background("engine/res/bg3.png", 0);
@@ -71,6 +72,7 @@ public class GameLogic {
             startGame();
         } else if (Engine.getGameState() == GameState.RUNNING) {
           Engine.disableText();
+          Engine.updateScore("Score: " + playerScore + "\nHealth: " + (int)player.getHealth());
           updateBackground();
           updateBullets();
           updateEnemies(now);
@@ -105,22 +107,23 @@ public class GameLogic {
       Engine.getRoot().getChildren().remove(e.getImageView());
       it.remove();
     }
-    
+
     for (Iterator<Pickup> it = onScreenPickups.iterator(); it.hasNext();) {
       Pickup p = it.next();
       Engine.getRoot().getChildren().remove(p.getIcon());
       it.remove();
     }
-    
+
     for (Iterator<Bullet> it = onScreenBullets.iterator(); it.hasNext();) {
       Bullet b = it.next();
       Engine.getRoot().getChildren().remove(b.circle());
       it.remove();
     }
   }
-  
-  public void startGame() {    
+
+  public void startGame() {
     Engine.disableText();
+    Engine.initScoreDisplay();
     player.setHealth(Engine.getDifficulty());
     Engine.setGameState(GameState.RUNNING);
     startAnimationTimer();
@@ -191,10 +194,10 @@ public class GameLogic {
       EnemyShip e = null;
       switch (rand.nextInt(2)) {
         case 0:
-          e = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50);
+          e = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50, playerScore / 5000);
           break;
         case 1:
-          e = new Enemy2(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50);
+          e = new Enemy2(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50, playerScore / 5000);
           break;
       }
       onScreenEnemies.add(e);
@@ -318,5 +321,9 @@ public class GameLogic {
   // Methods related to player management
   public void playerFiring(boolean f) {
     playerFiring = f;
+  }
+
+  public void onEnemyDestroyed(int score) {
+    playerScore += score;
   }
 }

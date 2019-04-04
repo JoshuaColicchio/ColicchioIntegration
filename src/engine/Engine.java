@@ -21,6 +21,7 @@ public class Engine extends Application {
   private static long startTime;
   private static GameState gState;
   private static Label textDisplay = new Label("");
+  private static Label scoreDisplay = new Label("Score: ");
   private static TextInputDialog difficulty;
   private static double difficultyHealth = 100;
 
@@ -97,6 +98,18 @@ public class Engine extends Application {
         }
       });
     }
+  }
+  
+  public static void initScoreDisplay() {
+    scoreDisplay.setFont(new Font("Comic Sans", 24));
+    scoreDisplay.setTextFill(Color.WHITE);
+    scoreDisplay.setLayoutX(0);
+    scoreDisplay.setLayoutY(0);
+    root.getChildren().add(scoreDisplay);
+  }
+  
+  public static void updateScore(String txt) {
+    scoreDisplay.setText(txt);
   }
 
   public String findSmallestInArray(int[] arr) {

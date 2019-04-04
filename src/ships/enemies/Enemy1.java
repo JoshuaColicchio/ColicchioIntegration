@@ -8,8 +8,8 @@ public class Enemy1 extends EnemyShip {
 
   public double[] weaponLocations;
 
-  public Enemy1(double x, double y) {
-    super("ships/res/Enemy1.png", 20, 2, 1);
+  public Enemy1(double x, double y, int healthModifier) {
+    super("ships/res/Enemy1.png", 20 +  10 * healthModifier, 2, 1);
     iv.setFitHeight(80);
     iv.setFitWidth(80);
     iv.setRotate(180);
@@ -30,5 +30,11 @@ public class Enemy1 extends EnemyShip {
     b = new Bullet(5, 10, 5, 1, weaponLocations[1],
         super.iv.getY() + 3 * super.iv.getFitHeight() / 4, false);
     Engine.getGameLoop().registerBullet(b);
+  }
+  
+  @Override
+  public void onDestroyed() {
+    Engine.getGameLoop().onEnemyDestroyed(500);
+    super.onDestroyed();
   }
 }

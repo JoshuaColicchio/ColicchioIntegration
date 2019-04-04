@@ -43,6 +43,10 @@ public class Player extends GameShip {
   public void setHealth(double hlth) {
     health = hlth;
   }
+  
+  public double getHealth() {
+    return health;
+  }
 
   public void onPickup(Pickup p) {
     switch (p.getType()) {
