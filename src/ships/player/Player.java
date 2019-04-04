@@ -57,7 +57,7 @@ public class Player extends GameShip {
         dmgBuff += 5;
         break;
       case 2:
-        rateOfFire = rateOfFire / 2;
+        rateOfFire = 3 * rateOfFire / 4;
         break;
     }
     p.mark();
