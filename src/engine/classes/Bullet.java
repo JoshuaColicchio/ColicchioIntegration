@@ -3,6 +3,9 @@ package engine.classes;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+//Joshua Colicchio
+//This class is the base class for all bullets fired during gameplay
+
 public class Bullet {
   
   private Circle circle;

@@ -1,5 +1,8 @@
 package engine.utils;
 
+//Joshua Colicchio
+//This class is a 'custom' data type created for simplification of code in GameLogic
+
 public class Vector2 {
   
   public double X,Y;

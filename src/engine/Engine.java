@@ -12,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+// Joshua Colicchio
+// Main driver class for space game
+
 public class Engine extends Application {
 
   private final int DEF_WIDTH = 600, DEF_HEIGHT = 800;
@@ -94,6 +97,7 @@ public class Engine extends Application {
             logicLoop.startGame();
           }
         } catch (Exception ex) {
+          // If user enters anything but an int, this gets called
           displayDifficultyOption();
         }
       });

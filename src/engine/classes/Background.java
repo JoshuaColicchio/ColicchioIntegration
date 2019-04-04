@@ -4,17 +4,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+// Joshua Colicchio
+// This class is the base all background images are built off, which are used by GameLogic to create
+// the infinite scroll background
+
 public class Background {
 
   private ImageView iv;
   private int variant;
-  
+
   public Background(String img, int var) {
     iv = new ImageView(new Image(img));
     variant = var;
     prepScene();
   }
-  
+
   public ImageView getIV() {
     return iv;
   }

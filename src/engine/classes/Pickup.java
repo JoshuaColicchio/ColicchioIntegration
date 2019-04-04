@@ -3,6 +3,9 @@ package engine.classes;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+//Joshua Colicchio
+//This class is the base for all pickups generated during gameplay
+
 public class Pickup {
   
   private Circle pickupIcon;

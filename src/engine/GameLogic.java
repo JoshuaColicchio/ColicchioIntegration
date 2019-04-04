@@ -13,6 +13,9 @@ import ships.enemies.Enemy1;
 import ships.enemies.Enemy2;
 import ships.player.Player;
 
+// Joshua Colicchio
+// All logic happens in this class, such as updating game objects
+
 public class GameLogic {
 
   // Shared random instance

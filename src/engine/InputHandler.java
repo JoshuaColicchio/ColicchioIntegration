@@ -7,6 +7,9 @@ import engine.Engine.GameState;
 import engine.utils.Vector2;
 import javafx.scene.input.KeyCode;
 
+// Joshua Colicchio
+// This class handles user inputs (key press, mouse movements / clicks)
+
 public class InputHandler {
   
   private Vector2 mousePos, pausedMouse;

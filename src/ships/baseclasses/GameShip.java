@@ -3,6 +3,10 @@ package ships.baseclasses;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+//Joshua Colicchio
+// This class is the base for all ships spawned during gameplay, including the player
+// Enemy ships extend the EnemyShip class, but the EnemyShip class extends this class
+
 public abstract class GameShip {
   
   protected ImageView iv;

@@ -4,6 +4,9 @@ import java.util.Random;
 import engine.Engine;
 import ships.baseclasses.EnemyShip;
 
+//Joshua Colicchio
+// This class is the base for the second variant of enemies spawned during gameplay
+
 public class Enemy2 extends EnemyShip {
 
   private final long swayDir;

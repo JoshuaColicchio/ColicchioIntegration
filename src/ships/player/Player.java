@@ -6,6 +6,9 @@ import engine.classes.Pickup;
 import javafx.scene.image.ImageView;
 import ships.baseclasses.GameShip;
 
+//Joshua Colicchio
+// This class is the base for the player ship
+
 public class Player extends GameShip {
 
   private static long rateOfFire = 30;

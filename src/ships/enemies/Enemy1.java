@@ -4,6 +4,9 @@ import engine.Engine;
 import engine.classes.Bullet;
 import ships.baseclasses.EnemyShip;
 
+//Joshua Colicchio
+//This class is the base for the first variant of enemies spawned during gameplay
+
 public class Enemy1 extends EnemyShip {
 
   public double[] weaponLocations;
