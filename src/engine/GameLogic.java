@@ -75,7 +75,7 @@ public class GameLogic {
             startGame();
         } else if (Engine.getGameState() == GameState.RUNNING) {
           Engine.disableText();
-          Engine.updateScore("Score: " + playerScore + "\nHealth: " + (int)player.getHealth());
+          Engine.updateScore("Score: " + playerScore + "\nHealth: " + (int) player.getHealth());
           updateBackground();
           updateBullets();
           updateEnemies(now);
@@ -147,8 +147,11 @@ public class GameLogic {
   // Methods relating to background system
   public void chooseNextBackground() {
     nextBG = currBG;
-    while (nextBG == currBG)
+    while (nextBG == currBG) {
       nextBG = indexOfBG(rand.nextInt(4));
+      continue; // The continue statement in a loop ends execution of the current iteration, and
+                // jumps to the next loop through
+    }
   }
 
   public Background indexOfBG(int ind) {
@@ -196,13 +199,16 @@ public class GameLogic {
       lastEnemySpawn = now;
       EnemyShip e = null;
       switch (rand.nextInt(2)) {
-        case 0: // Casting in Java is when you want the compiler to treat one variable type as another
+        case 0: // Casting in Java is when you want the compiler to treat one variable type as
+                // another
           // Like below, where I tell Java to treat the Engine.getScene().getWidth() variable, which
           // is a double, as an int.
-          e = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50, playerScore / 5000);
+          e = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50,
+              playerScore / 5000);
           break;
         case 1:
-          e = new Enemy2(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50, playerScore / 5000);
+          e = new Enemy2(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50,
+              playerScore / 5000);
           break;
       }
       onScreenEnemies.add(e);
@@ -220,6 +226,19 @@ public class GameLogic {
     } catch (Exception ex) {
       System.out.println(ex);
     }
+  }
+
+  public EnemyShip findEnemy(EnemyShip es) {
+    EnemyShip en = null;
+    for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
+      EnemyShip enemy = it.next();
+      if (enemy.equals(es)) {
+        en = enemy;
+        break; // If the if statement evaluates as true, the inner code is executed and the loop
+               // ends prematurely
+      }
+    }
+    return en;
   }
 
   // Methods relating to pickup management

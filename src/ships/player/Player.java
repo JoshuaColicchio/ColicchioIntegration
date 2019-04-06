@@ -11,7 +11,7 @@ import ships.baseclasses.GameShip;
 
 public class Player extends GameShip {
 
-  private static long rateOfFire = 30;
+  private static long rateOfFire = 30, baseROF = 30;
   private long damageTimer = -1;
   private double dmgBuff = 0;
   private long lastBulletShot = -1;
@@ -78,6 +78,10 @@ public class Player extends GameShip {
         super.iv.setOpacity((super.iv.getOpacity() == 0.5) ? 1 : 0.5);
       else if (damageTimer + 1000000000 < now)
         super.iv.setOpacity(1);
+      
+      if (rateOfFire > baseROF)
+        rateOfFire--;
+      
     } catch (Exception ex) {
       System.out.println(ex);
     }

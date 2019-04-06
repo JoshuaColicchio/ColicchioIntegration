@@ -35,6 +35,7 @@ public class Engine extends Application {
   };
 
   public static void main(String[] args) {
+    psiCompliance();
     launch(args);
   }
 
@@ -92,7 +93,7 @@ public class Engine extends Application {
     else {
       result.ifPresent(e -> {
         try {
-          difficultyHealth = Integer.parseInt(e);
+          difficultyHealth = Double.parseDouble(e);
           if (difficultyHealth < 1 || difficultyHealth > 100) {
             displayDifficultyOption();
           } else {
@@ -100,7 +101,7 @@ public class Engine extends Application {
             logicLoop.startGame();
           }
         } catch (Exception ex) {
-          // If user enters anything but an int, this gets called
+          // If user enters anything but a double, this gets called
           displayDifficultyOption();
         }
       });
@@ -193,7 +194,7 @@ public class Engine extends Application {
     displayDifficultyOption();
   }
   
-  public void psiCompliance() {
+  public static void psiCompliance() { 
     String s1 = "Hello";
     String s2 = "Hello";
     boolean b1 = (s1 == s2);
@@ -201,6 +202,13 @@ public class Engine extends Application {
     int i1 = s1.compareTo(s2);
     System.out.println("Comparing \"" + s1 + "\" and \"" + s2 + "\"");
     System.out.println("Using == " + b1 + "\nUsing .equals " + b2 + "\nUsing compareTo " + i1);
+    
+    System.out.println("The value of 5 % 3 is 2, proof: " + (5 % 3));
+    
+    long startTime = System.nanoTime();
+    do {
+      System.out.println("Holding up program execution :)");
+    } while (startTime + 5000 > System.nanoTime());
   }
 }
 
@@ -231,4 +239,12 @@ public class Engine extends Application {
  * Scope in Java is the level of access a variable has / where a variable 'exists'. For example, if
  * you declare a variable inside of a method, that variable is scoped only in that method, not
  * outside of it.
+ */
+
+/*
+ * Operator precedence is a lot like PEMDAS in math.
+ * It dictates which operations are done first when executing code
+ * For example, in the code "5 + 2 / 2 * 3" the program will first
+ * divide 2 by 2, because multiplication and division have the same precedence,
+ * then it will multiply the result, 1, by three, then add five.
  */
