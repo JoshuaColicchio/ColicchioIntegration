@@ -83,8 +83,8 @@ public class Engine extends Application {
   public static void displayDifficultyOption() {
     difficulty = new TextInputDialog("1(hard) - 100(easy)");
     difficulty
-        .setTitle("Hello, and welcome to my integration project!\nPlease select a difficulty");
-    difficulty.setHeaderText("Input your starting health (1-100)");
+        .setTitle("Hello, and welcome to my integration project!\nPlease select a 'difficulty'");
+    difficulty.setHeaderText("Input your starting health (whole number) (1-100)");
     difficulty.setContentText("Starting health: ");
 
     Optional<String> result = difficulty.showAndWait();
@@ -109,7 +109,7 @@ public class Engine extends Application {
   }
 
   public static void initScoreDisplay() {
-    scoreDisplay.setFont(new Font("Comic Sans", 24));
+    scoreDisplay.setFont(new Font("Comic Sans", 24)); // who doesn't love comic sans
     scoreDisplay.setTextFill(Color.WHITE);
     scoreDisplay.setLayoutX(0);
     scoreDisplay.setLayoutY(0);
@@ -146,29 +146,31 @@ public class Engine extends Application {
 
   public String findCoordsInArray(int[][] arr, int valueToFind) {
     String arrAsString = "{ ";
-    int x = -1, y = -1;
+    int xCoord = -1;
+    int yCoord = -1;
     for (int i = 0; i < arr.length; i++) {
       arrAsString += (i != 0) ? ", {" : "{";
       for (int j = 0; j < arr[i].length; j++) {
         arrAsString += (j + 1 < arr[i].length) ? arr[i][j] + ", " : arr[i][j] + "}";
         if (arr[i][j] == valueToFind) {
-          x = i;
-          y = j;
+          xCoord = i;
+          yCoord = j;
         }
       }
     }
     arrAsString += " }";
     return "The coordinates of " + valueToFind + " in the two-dimensional array " + arrAsString
-        + " are (" + x + ", " + y + ").";
+        + " are (" + xCoord + ", " + yCoord + ").";
   }
 
   @Override
-  public void start(Stage s) {
+  public void start(Stage primStage) {
     startTime = System.nanoTime();
     gState = GameState.LOADING;
-    Random r = new Random(); // only used for PSI 3 requirement
+    Random rando = new Random(); // only used for PSI 3 requirement
 
-    int[] arr1d = {r.nextInt(), r.nextInt(), r.nextInt(), r.nextInt(), r.nextInt(), r.nextInt()};
+    int[] arr1d = {rando.nextInt(), rando.nextInt(), rando.nextInt(), rando.nextInt(),
+        rando.nextInt(), rando.nextInt()};
     System.out.println(findSmallestInArray(arr1d));
     System.out.println(sumOfArray(arr1d));
 
@@ -176,7 +178,7 @@ public class Engine extends Application {
     arr2d = new int[][] {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}};
     System.out.println(findCoordsInArray(arr2d, 6));
 
-    s.setTitle("Colicchio Integration");
+    primStage.setTitle("Colicchio Integration");
     Scene scene = new Scene(new BorderPane(root), DEF_WIDTH, DEF_HEIGHT);
 
     input = new InputHandler();
@@ -189,12 +191,12 @@ public class Engine extends Application {
     textDisplay.setLayoutX(DEF_WIDTH / 2 - 200);
     textDisplay.setLayoutY(DEF_HEIGHT / 8);
 
-    s.setScene(scene);
-    s.show();
+    primStage.setScene(scene);
+    primStage.show();
     displayDifficultyOption();
   }
-  
-  public static void psiCompliance() { 
+
+  public static void psiCompliance() {
     String s1 = "Hello";
     String s2 = "Hello";
     boolean b1 = (s1 == s2);
@@ -202,9 +204,9 @@ public class Engine extends Application {
     int i1 = s1.compareTo(s2);
     System.out.println("Comparing \"" + s1 + "\" and \"" + s2 + "\"");
     System.out.println("Using == " + b1 + "\nUsing .equals " + b2 + "\nUsing compareTo " + i1);
-    
+
     System.out.println("The value of 5 % 3 is 2, proof: " + (5 % 3));
-    
+
     long startTime = System.nanoTime();
     do {
       System.out.println("Holding up program execution :)");
@@ -242,9 +244,8 @@ public class Engine extends Application {
  */
 
 /*
- * Operator precedence is a lot like PEMDAS in math.
- * It dictates which operations are done first when executing code
- * For example, in the code "5 + 2 / 2 * 3" the program will first
- * divide 2 by 2, because multiplication and division have the same precedence,
- * then it will multiply the result, 1, by three, then add five.
+ * Operator precedence is a lot like PEMDAS in math. It dictates which operations are done first
+ * when executing code For example, in the code "5 + 2 / 2 * 3" the program will first divide 2 by
+ * 2, because multiplication and division have the same precedence, then it will multiply the
+ * result, 1, by three, then add five.
  */

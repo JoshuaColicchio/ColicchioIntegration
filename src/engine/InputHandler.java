@@ -11,36 +11,36 @@ import javafx.scene.input.KeyCode;
 // This class handles user inputs (key press, mouse movements / clicks)
 
 public class InputHandler {
-  
+
   private Vector2 mousePos, pausedMouse;
-  
+
   public InputHandler() {
-    Engine.getRoot().setOnMouseMoved(e -> {
-      mousePos = new Vector2(e.getSceneX(), e.getSceneY());
+    Engine.getRoot().setOnMouseMoved(event -> {
+      mousePos = new Vector2(event.getSceneX(), event.getSceneY());
     });
 
-    Engine.getRoot().setOnMouseDragged(e -> {
-      mousePos = new Vector2(e.getSceneX(), e.getSceneY());
+    Engine.getRoot().setOnMouseDragged(event -> {
+      mousePos = new Vector2(event.getSceneX(), event.getSceneY());
       Engine.getGameLoop().playerFiring(true);
     });
 
-    Engine.getRoot().setOnMouseDragReleased(e -> {
+    Engine.getRoot().setOnMouseDragReleased(event -> {
       Engine.getGameLoop().playerFiring(false);
     });
 
-    Engine.getRoot().setOnMousePressed(e -> {
+    Engine.getRoot().setOnMousePressed(event -> {
       Engine.getGameLoop().playerFiring(true);
     });
 
-    Engine.getRoot().setOnMouseReleased(e -> {
+    Engine.getRoot().setOnMouseReleased(event -> {
       Engine.getGameLoop().playerFiring(false);
     });
-    
-    Engine.getRoot().setOnKeyPressed(e -> {
-      if (e.getCode() == KeyCode.ESCAPE || e.getCode() == KeyCode.SPACE) {
+
+    Engine.getRoot().setOnKeyPressed(event -> {
+      if (event.getCode() == KeyCode.ESCAPE || event.getCode() == KeyCode.SPACE) {
         if (Engine.getGameState() == GameState.PAUSED) {
           Engine.setGameState(GameState.RUNNING);
-          try {
+          try { // Moves mouse to position prior to pausing (avoid exploiting location)
             Robot robot = new Robot();
             robot.mouseMove((int) pausedMouse.X, (int) pausedMouse.Y);
           } catch (AWTException ex) {
@@ -59,7 +59,7 @@ public class InputHandler {
       }
     });
   }
-  
+
   public Vector2 getMousePos() {
     return mousePos;
   }
