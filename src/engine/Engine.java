@@ -272,7 +272,9 @@ public class Engine extends Application {
     int[][] arr2d;
     arr2d = new int[][] {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}};
     System.out.println(findCoordsInArray(arr2d, 6));
-
+    
+    Scene scene = new Scene(new BorderPane(root), DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    primStage.setScene(scene);
     primStage.setTitle("Colicchio Integration");
 
     input = new InputHandler();
@@ -284,9 +286,6 @@ public class Engine extends Application {
     root.getChildren().add(root.getChildren().size(), textDisplay);
     textDisplay.setLayoutX(DEFAULT_WIDTH / 2 - 200);
     textDisplay.setLayoutY(DEFAULT_HEIGHT / 8);
-    
-    Scene scene = new Scene(new BorderPane(root), DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    primStage.setScene(scene);
     primStage.show();
     displayDifficultyOption();
     initScoreDisplay();
