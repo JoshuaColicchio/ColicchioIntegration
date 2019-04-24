@@ -27,6 +27,7 @@ public class GameLogic {
   private int playerScore = 0;
 
   // Variables relating to background scroller
+  // Image courtesy of nasa.gov
   private Background bg1 = new Background("engine/res/bg3.png", 0);
   private Background bg2 = new Background("engine/res/bg3.png", 1);
   private Background bg3 = new Background("engine/res/bg3.png", 2);
