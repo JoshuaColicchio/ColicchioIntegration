@@ -20,7 +20,8 @@ import javafx.scene.image.ImageView;
 
 public class EnemyShip extends GameShip {
   
-  private int weaponCount = 0, weaponType = 0;
+  private int weaponCount = 0;
+  private int weaponType = 0;
   private boolean markedForRemoval = false;
   private long damageTimer = -1;
 
@@ -54,10 +55,10 @@ public class EnemyShip extends GameShip {
   public void fire() {
     for (int i = 0; i < weaponCount; i++) {
       float spacer = (float)1 / (2*weaponCount) + (float)i/weaponCount;
-      Bullet b = new Bullet(5, 10, 5, weaponType,
+      Bullet bullet = new Bullet(5, 10, 5, weaponType,
           super.iv.getX() + spacer * super.iv.getFitWidth(),
           super.iv.getY() + 3 * super.iv.getFitHeight() / 4, false);
-      Engine.getGameLoop().registerBullet(b);
+      Engine.getGameLoop().registerBullet(bullet);
     }
   }
 

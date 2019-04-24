@@ -4,7 +4,7 @@ import java.util.Random;
 import engine.Engine;
 import ships.baseclasses.EnemyShip;
 
-//Joshua Colicchio
+// Joshua Colicchio
 // This class is the base for the second variant of enemies spawned during gameplay
 
 public class Enemy2 extends EnemyShip {
@@ -36,16 +36,16 @@ public class Enemy2 extends EnemyShip {
       offset = now - pausedTime + offset;
       pausedTime = 0;
     }
-    double t = (now - offset) / 1000000000.0;
-    double x = 250 + swayDir * 128 * Math.cos(t);
-    super.iv.setX(x);
+    double adjustedTime = (now - offset) / 1000000000.0;
+    double xCoord = 250 + swayDir * 128 * Math.cos(adjustedTime);
+    super.iv.setX(xCoord);
 
     if (rand.nextInt(100) == 28)
       fire();
 
     super.update(now);
   }
-  
+
   @Override
   public void onDestroyed() {
     // Below, Engine.getGameLoop().onEnemyDestroyed is a method call, and 1000 is the argument

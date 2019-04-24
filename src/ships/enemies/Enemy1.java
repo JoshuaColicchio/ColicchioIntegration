@@ -26,13 +26,13 @@ public class Enemy1 extends EnemyShip {
 
   @Override
   public void fire() {
-    Bullet b = new Bullet(5, 10, 5, 1, weaponLocations[0],
+    Bullet bullet = new Bullet(5, 10, 5, 1, weaponLocations[0],
         super.iv.getY() + 3 * super.iv.getFitHeight() / 4, false);
-    Engine.getGameLoop().registerBullet(b);
+    Engine.getGameLoop().registerBullet(bullet);
 
-    b = new Bullet(5, 10, 5, 1, weaponLocations[1],
+    bullet = new Bullet(5, 10, 5, 1, weaponLocations[1],
         super.iv.getY() + 3 * super.iv.getFitHeight() / 4, false);
-    Engine.getGameLoop().registerBullet(b);
+    Engine.getGameLoop().registerBullet(bullet);
   }
   
   @Override
