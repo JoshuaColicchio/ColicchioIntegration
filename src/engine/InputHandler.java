@@ -7,8 +7,13 @@ import engine.Engine.GameState;
 import engine.utils.Vector2;
 import javafx.scene.input.KeyCode;
 
-// Joshua Colicchio
-// This class handles user inputs (key press, mouse movements / clicks)
+/**
+ * This class listens for player input events, including mouse movements, mouse clicks, and key
+ * presses.
+ * 
+ * @author - Joshua Colicchio
+ * @version - 1.0
+ */
 
 public class InputHandler {
 
@@ -60,6 +65,10 @@ public class InputHandler {
     });
   }
 
+  /**
+   * Returns the current position of the mouse.
+   * @return engine.utils.Vector2
+   */
   public Vector2 getMousePos() {
     return mousePos;
   }

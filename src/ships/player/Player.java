@@ -2,12 +2,17 @@ package ships.player;
 
 import engine.classes.Bullet;
 import engine.Engine;
+import engine.Engine.GameState;
 import engine.classes.Pickup;
 import javafx.scene.image.ImageView;
 import ships.baseclasses.GameShip;
 
-//Joshua Colicchio
-// This class is the base for the player ship
+/**
+ * This is the base class for the player ship.
+ * 
+ * @author - Joshua Colicchio
+ * @version - 1.0
+ */
 
 public class Player extends GameShip {
 
@@ -18,6 +23,9 @@ public class Player extends GameShip {
   private long lastBulletShot = -1;
   private ImageView ship;
 
+  /**
+   * Constructor for the player ship using the default ship image.
+   */
   public Player() {
     super("ships/res/player.png", Engine.getDifficulty(), rateOfFire);
     ship = super.iv;
@@ -27,6 +35,11 @@ public class Player extends GameShip {
     ship.setY(Engine.getScene().getHeight() - ship.getFitHeight());
   }
 
+  /**
+   * Constructor for the player ship using an alternate ship image.
+   * 
+   * @param customImg - File path of the alternate ship image to use.
+   */
   public Player(String customImg) {
     super(customImg, rateOfFire, 100);
     ship = iv;
@@ -36,22 +49,48 @@ public class Player extends GameShip {
     ship.setY(Engine.getScene().getHeight() - ship.getFitHeight());
   }
 
+  /**
+   * Returns the ImageView of the player ship.
+   * 
+   * @return javafx.scene.image.ImageView
+   */
   public ImageView getShip() {
     return ship;
   }
 
+  /**
+   * Sets a new ImageView for the player ship.
+   * 
+   * @param newShip - New ImageView.
+   */
   public void setShip(ImageView newShip) {
     ship = newShip;
   }
 
+  /**
+   * Sets the health of the player ship.
+   * 
+   * @param hlth - New health.
+   */
   public void setHealth(double hlth) {
     health = hlth;
   }
-  
+
+  /**
+   * Returns the player ships current health.
+   * 
+   * @return double
+   */
   public double getHealth() {
     return health;
   }
 
+  /**
+   * Method called when the player ship collides with a pickup. Applies the pickup buff to the
+   * player.
+   * 
+   * @param pickup - Pickup object that has been collided with.
+   */
   public void onPickup(Pickup pickup) {
     switch (pickup.getType()) {
       case 0:
@@ -79,10 +118,10 @@ public class Player extends GameShip {
         super.iv.setOpacity((super.iv.getOpacity() == 0.5) ? 1 : 0.5);
       else if (damageTimer + 1000000000 < now)
         super.iv.setOpacity(1);
-      
+
       if (rateOfFire > baseROF)
         rateOfFire--;
-      
+
     } catch (Exception ex) {
       System.out.println(ex);
     }
@@ -114,8 +153,7 @@ public class Player extends GameShip {
 
   @Override
   public void onDestroyed() {
-    Engine.getGameLoop().gameOver();
-    Engine.getGameLoop().cleanup();
+    Engine.setGameState(GameState.GAMEOVER);
   }
 
 }

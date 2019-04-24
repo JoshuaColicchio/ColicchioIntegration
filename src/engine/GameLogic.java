@@ -13,8 +13,14 @@ import ships.enemies.Enemy1;
 import ships.enemies.Enemy2;
 import ships.player.Player;
 
-// Joshua Colicchio
-// All logic happens in this class, such as updating game objects
+/**
+ * This class handles all game logic, including updating player and enemy positions, determining how
+ * to handle events depending on the current GameState, scrolling the background, and handling
+ * collisions.
+ * 
+ * @author - Joshua Colicchio
+ * @version - 1.0
+ */
 
 public class GameLogic {
 
@@ -24,9 +30,10 @@ public class GameLogic {
   // Variables relating to player
   private Player player;
   private boolean playerFiring = false;
+  private boolean cleanedup = false;
   private int playerScore = 0;
 
-  // Variables relating to background scroller
+  // Variables relating to background
   // Image courtesy of nasa.gov
   private Background bg1 = new Background("engine/res/bg3.png", 0);
   private Background bg2 = new Background("engine/res/bg3.png", 1);
@@ -53,6 +60,9 @@ public class GameLogic {
   // Animation Timer
   private AnimationTimer timer;
 
+  /**
+   * This method sets the initial values for the GameLogic loop, and then starts the loop.
+   */
   public GameLogic() {
     // Add all backgrounds to engine root
     Engine.getRoot().getChildren().addAll(bg1.getIV(), bg2.getIV(), bg3.getIV(), bg4.getIV());
@@ -89,6 +99,8 @@ public class GameLogic {
         } else if (Engine.getGameState() == GameState.PAUSED) {
           Engine.enableText("Paused");
         } else if (Engine.getGameState() == GameState.GAMEOVER) {
+          if (!cleanedup)
+            cleanup();
           Engine.enableText("Game over!\nPress any\nbutton to restart");
           stopAnimationTimer();
         }
@@ -96,7 +108,11 @@ public class GameLogic {
     };
   }
 
-  // Methods relating to pause system
+  /**
+   * This method is called when the game state is changed to PAUSED. It tells each instance of
+   * Enemy2 what time the game was paused at so that the path function can offset itself by the
+   * pause time so the path of motion doesn't jerk suddenly.
+   */
   public void pauseGame() {
     for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
       EnemyShip enemy1 = it.next();
@@ -107,6 +123,10 @@ public class GameLogic {
     }
   }
 
+  /**
+   * This method clears all game objects from the screen (Enemies, Pickups, etc.). Called when game
+   * state is set to GAMEOVER.
+   */
   public void cleanup() {
     for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
       EnemyShip enemy1 = it.next();
@@ -125,29 +145,40 @@ public class GameLogic {
       Engine.getRoot().getChildren().remove(bullet.circle());
       it.remove();
     }
+
+    cleanedup = true;
   }
 
+  /**
+   * Prepares the game to start, sets the game state to RUNNING, then starts the game logic loop.
+   */
   public void startGame() {
     Engine.disableText();
-    Engine.initScoreDisplay();
     player.setHealth(Engine.getDifficulty());
     Engine.setGameState(GameState.RUNNING);
+    cleanedup = false;
     startAnimationTimer();
   }
 
-  public void gameOver() {
-    Engine.setGameState(GameState.GAMEOVER);
-  }
-
+  /**
+   * Stops the game logic loop.
+   */
   public void stopAnimationTimer() {
     timer.stop();
   }
+
+  /**
+   * Starts the game logic loop.
+   */
 
   public void startAnimationTimer() {
     timer.start();
   }
 
   // Methods relating to background system
+  /**
+   * This method randomly chooses a new background image to display.
+   */
   public void chooseNextBackground() {
     nextBG = currBG;
     while (nextBG == currBG) {
@@ -157,6 +188,12 @@ public class GameLogic {
     }
   }
 
+  /**
+   * This method returns the requested background using the provided index.
+   * 
+   * @param index - Index to get result from [0-3]
+   * @return engine.classes.Background
+   */
   public Background indexOfBG(int index) {
     switch (index) {
       case 0:
@@ -173,6 +210,12 @@ public class GameLogic {
     }
   }
 
+  /**
+   * This method updates the position of the background, and the next upcoming background. Once the
+   * top of the current background reaches the top of the screen, the next background is attached to
+   * the top of the screen, and begins to update. When the lower background leaves the screen, it is
+   * sent to storage.
+   */
   public void updateBackground() {
     if (Engine.getGameState() == GameState.GAMEOVER)
       return;
@@ -189,11 +232,16 @@ public class GameLogic {
         chooseNextBackground();
       }
     } catch (Exception ex) {
-      System.out.println("ERROR: backgroundLogic: \"" + ex + "\"");
+      System.out.println("ERROR: BackgroundLogic: \"" + ex + "\"");
     }
   }
 
   // Methods relating to enemy management
+  /**
+   * Updates position of all on screen enemies, and cleans them up if they are marked for removal.
+   * 
+   * @param now - The current time in nanoseconds.
+   */
   public void updateEnemies(long now) {
     if (Engine.getGameState() == GameState.GAMEOVER)
       return;
@@ -231,6 +279,12 @@ public class GameLogic {
     }
   }
 
+  /**
+   * Searches through all on screen enemies until it finds the requested enemy.
+   * 
+   * @param es - The enemy to find.
+   * @return ships.baseclasses.EnemyShip
+   */
   public EnemyShip findEnemy(EnemyShip es) {
     EnemyShip enShip = null;
     for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
@@ -245,6 +299,12 @@ public class GameLogic {
   }
 
   // Methods relating to pickup management
+  /**
+   * Updates the position of all on screen pickups, and removes any pickups that have gone off
+   * screen. Also handles collision detection with the player.
+   * 
+   * @param now - The current time in nanoseconds.
+   */
   public void updatePickups(long now) {
     if (Engine.getGameState() == GameState.GAMEOVER)
       return;
@@ -279,6 +339,13 @@ public class GameLogic {
     }
   }
 
+  /**
+   * Spawns a pickup with a random effect at the provided X and Y coordinates. Primarily used to
+   * spawn pickups on destroyed enemies.
+   * 
+   * @param xCoord - X Coordinate to spawn the pickup at.
+   * @param yCoord - Y Coordinate to spawn the pickup at.
+   */
   public void spawnPickup(double xCoord, double yCoord) {
     int lotto = rand.nextInt(151);
     if (canSpawnPickup && lotto >= 100 && lotto <= 130) {
@@ -290,6 +357,9 @@ public class GameLogic {
     }
   }
 
+  /**
+   * Spawns a pickup with a random effect at the top of the screen.
+   */
   public void spawnPickup() {
     Pickup pickup =
         new Pickup(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50, rand.nextInt(3));
@@ -300,6 +370,9 @@ public class GameLogic {
   }
 
   // Methods relating to bullet management
+  /**
+   * Updates the position of all on screen bullets, and handles collision detection.
+   */
   public void updateBullets() {
     if (Engine.getGameState() == GameState.GAMEOVER)
       return;
@@ -326,7 +399,8 @@ public class GameLogic {
                 }
               }
             } else { // can only hit player
-              if (bullet.circle().getBoundsInParent().intersects(player.getShip().getBoundsInParent())) {
+              if (bullet.circle().getBoundsInParent()
+                  .intersects(player.getShip().getBoundsInParent())) {
                 bullet.mark();
                 player.onTakeDamage(bullet.getDamage());
               }
@@ -341,16 +415,31 @@ public class GameLogic {
     }
   }
 
+  /**
+   * Adds the bullet to the ArrayList of all on screen bullets, and adds it to the root pane.
+   * 
+   * @param bullet - Bullet to add.
+   */
   public void registerBullet(Bullet bullet) {
     onScreenBullets.add(bullet);
     Engine.getRoot().getChildren().add(bullet.circle());
   }
 
   // Methods related to player management
+  /**
+   * Updates whether or not the player is currently firing.
+   * 
+   * @param isFiring - Whether the player is firing or not.
+   */
   public void playerFiring(boolean isFiring) {
     playerFiring = isFiring;
   }
 
+  /**
+   * Updates the players' score.
+   * @param score - The value to increment the players' score by.
+   * @return boolean
+   */
   public boolean onEnemyDestroyed(int score) {
     playerScore += score;
     return true;
