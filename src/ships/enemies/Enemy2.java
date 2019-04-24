@@ -14,7 +14,7 @@ public class Enemy2 extends EnemyShip {
   private Random rand = new Random();
 
   public Enemy2(double x, double y, int healthModifier) {
-    super("ships/res/Enemy2.png", 20 + 10 * healthModifier, 2, 2);
+    super("ships/res/enemy2.png", 20 + 10 * healthModifier, 2, 2);
     iv.setFitHeight(80);
     iv.setFitWidth(80);
     iv.setRotate(180);

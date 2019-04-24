@@ -157,14 +157,11 @@ public class Engine extends Application {
         try {
           difficultyHealth = Double.parseDouble(event);
           if (difficultyHealth < 1 || difficultyHealth > 100) {
-            System.out.println("1");
             displayDifficultyOption();
           } else {
-            System.out.println("2");
             startTime = System.nanoTime();
             logicLoop.startGame();
           }
-          System.out.println("3");
         } catch (Exception ex) {
           ex.printStackTrace();
           // If user enters anything but a double, this gets called

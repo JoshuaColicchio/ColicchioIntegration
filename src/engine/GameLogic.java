@@ -275,7 +275,8 @@ public class GameLogic {
           enemy.update(now);
       }
     } catch (Exception ex) {
-      System.out.println(ex);
+      // Error expected here during cleanup due to things being deleted while the logic loop is
+      // trying to use them, so no need to print the error.
     }
   }
 

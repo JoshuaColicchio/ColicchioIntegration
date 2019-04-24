@@ -12,7 +12,7 @@ public class Enemy1 extends EnemyShip {
   public double[] weaponLocations;
 
   public Enemy1(double x, double y, int healthModifier) {
-    super("ships/res/Enemy1.png", 20 + 10 * healthModifier, 2, 1);
+    super("ships/res/enemy1.png", 20 + 10 * healthModifier, 2, 1);
     iv.setFitHeight(80);
     iv.setFitWidth(80);
     iv.setRotate(180);
