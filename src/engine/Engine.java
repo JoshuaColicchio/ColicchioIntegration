@@ -150,7 +150,7 @@ public class Engine extends Application {
     difficulty.setContentText("Starting health: ");
 
     Optional<String> result = difficulty.showAndWait();
-    if (!result.isPresent()) 
+    if (!result.isPresent())
       displayDifficultyOption();
     else {
       result.ifPresent(event -> {

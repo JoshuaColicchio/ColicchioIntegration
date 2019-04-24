@@ -4,15 +4,15 @@ import engine.Engine;
 import engine.classes.Bullet;
 import ships.baseclasses.EnemyShip;
 
-//Joshua Colicchio
-//This class is the base for the first variant of enemies spawned during gameplay
+// Joshua Colicchio
+// This class is the base for the first variant of enemies spawned during gameplay
 
 public class Enemy1 extends EnemyShip {
 
   public double[] weaponLocations;
 
   public Enemy1(double x, double y, int healthModifier) {
-    super("ships/res/Enemy1.png", 20 +  10 * healthModifier, 2, 1);
+    super("ships/res/Enemy1.png", 20 + 10 * healthModifier, 2, 1);
     iv.setFitHeight(80);
     iv.setFitWidth(80);
     iv.setRotate(180);
@@ -34,7 +34,7 @@ public class Enemy1 extends EnemyShip {
         super.iv.getY() + 3 * super.iv.getFitHeight() / 4, false);
     Engine.getGameLoop().registerBullet(bullet);
   }
-  
+
   @Override
   public void onDestroyed() {
     Engine.getGameLoop().onEnemyDestroyed(500);

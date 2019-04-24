@@ -67,6 +67,7 @@ public class InputHandler {
 
   /**
    * Returns the current position of the mouse.
+   * 
    * @return engine.utils.Vector2
    */
   public Vector2 getMousePos() {

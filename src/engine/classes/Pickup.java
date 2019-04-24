@@ -67,6 +67,7 @@ public class Pickup {
 
   /**
    * Returns the color to draw the pickup depending on type.
+   * 
    * @return javafx.scene.paint.Color
    */
   public Color getColorFromType() {

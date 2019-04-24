@@ -437,6 +437,7 @@ public class GameLogic {
 
   /**
    * Updates the players' score.
+   * 
    * @param score - The value to increment the players' score by.
    * @return boolean
    */
