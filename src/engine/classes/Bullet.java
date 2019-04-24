@@ -9,7 +9,8 @@ import javafx.scene.shape.Circle;
 public class Bullet {
   
   private Circle circle;
-  private double baseDmg = 5, speed = 0;
+  private double baseDmg = 5;
+  private double speed = 0;
   private int type = 0; 
   private boolean markedForRemoval = false;
   private boolean friendly = false;
