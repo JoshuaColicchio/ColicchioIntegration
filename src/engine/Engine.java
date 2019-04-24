@@ -163,7 +163,6 @@ public class Engine extends Application {
             logicLoop.startGame();
           }
         } catch (Exception ex) {
-          ex.printStackTrace();
           // If user enters anything but a double, this gets called
           displayDifficultyOption();
         }
