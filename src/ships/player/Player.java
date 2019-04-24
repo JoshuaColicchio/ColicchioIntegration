@@ -11,7 +11,8 @@ import ships.baseclasses.GameShip;
 
 public class Player extends GameShip {
 
-  private static long rateOfFire = 30, baseROF = 30;
+  private static long rateOfFire = 30;
+  private static long baseROF = 30;
   private long damageTimer = -1;
   private double dmgBuff = 0;
   private long lastBulletShot = -1;
@@ -51,8 +52,8 @@ public class Player extends GameShip {
     return health;
   }
 
-  public void onPickup(Pickup p) {
-    switch (p.getType()) {
+  public void onPickup(Pickup pickup) {
+    switch (pickup.getType()) {
       case 0:
         health = (health + 10 > Engine.getDifficulty()) ? Engine.getDifficulty() : health + 10;
         break;
@@ -63,7 +64,7 @@ public class Player extends GameShip {
         rateOfFire = 3 * rateOfFire / 4;
         break;
     }
-    p.mark();
+    pickup.mark();
   }
 
   @Override
@@ -94,12 +95,12 @@ public class Player extends GameShip {
 
     lastBulletShot = System.nanoTime();
 
-    Bullet b = new Bullet(5 + dmgBuff, -5, 5, 0, ship.getX() + ship.getFitWidth() / 4,
+    Bullet bullet = new Bullet(5 + dmgBuff, -5, 5, 0, ship.getX() + ship.getFitWidth() / 4,
         ship.getY() + ship.getFitHeight() / 4, true);
-    Engine.getGameLoop().registerBullet(b);
-    b = new Bullet(5 + dmgBuff, -5, 5, 0, ship.getX() + 3 * ship.getFitWidth() / 4,
+    Engine.getGameLoop().registerBullet(bullet);
+    bullet = new Bullet(5 + dmgBuff, -5, 5, 0, ship.getX() + 3 * ship.getFitWidth() / 4,
         ship.getY() + ship.getFitHeight() / 4, true);
-    Engine.getGameLoop().registerBullet(b);
+    Engine.getGameLoop().registerBullet(bullet);
   }
 
   @Override
