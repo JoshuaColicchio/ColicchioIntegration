@@ -77,7 +77,6 @@ public class Engine extends Application {
    * Updates the current Game State.
    * 
    * @param gs State to update to.
-   * @return Nothing.
    */
   public static void setGameState(GameState gs) {
     gState = gs;
