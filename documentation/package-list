@@ -1,1 +1,6 @@
 engine
+engine.classes
+engine.utils
+ships.baseclasses
+ships.enemies
+ships.player
