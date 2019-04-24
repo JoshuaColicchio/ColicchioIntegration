@@ -25,8 +25,8 @@ public class Engine extends Application {
 
   // The "final" keyword makes it so the program cannot change the value of the variable.
   // So if I tried 'DEF_WIDTH = 5' anywhere in this program, it would throw a compiler error.
-  private final int DEF_WIDTH = 600;
-  private final int DEF_HEIGHT = 800;
+  private final int DEFAULT_WIDTH = 600; // CheckStyle contradicts with Google Style here
+  private final int DEFAULT_HEIGHT = 800;// CheckStyle contradicts with Google Style here
   private static GameLogic logicLoop;
   private static InputHandler input;
   private static Pane root = new Pane();
@@ -39,7 +39,7 @@ public class Engine extends Application {
 
   public enum GameState {
     RUNNING, PAUSED, GAMEOVER, LOADING
-  };
+  }
 
   public static void main(String[] args) {
     psiCompliance();
@@ -150,9 +150,9 @@ public class Engine extends Application {
     difficulty.setContentText("Starting health: ");
 
     Optional<String> result = difficulty.showAndWait();
-    if (!result.isPresent())
+    if (!result.isPresent()) {
       displayDifficultyOption();
-    else {
+    } else {
       result.ifPresent(event -> {
         try {
           difficultyHealth = Double.parseDouble(event);
@@ -201,8 +201,9 @@ public class Engine extends Application {
     String arrAsString = "" + arr[0];
     for (int i = 1; i < arr.length; i++) {
       arrAsString = arrAsString + " " + arr[i];
-      if (arr[i] < arr[indexOfSmallest])
+      if (arr[i] < arr[indexOfSmallest]) {
         indexOfSmallest = i;
+      }
     }
 
     return "The smallest value in [" + arrAsString + "] is " + arr[indexOfSmallest] + " | Index: "
@@ -235,8 +236,8 @@ public class Engine extends Application {
    */
   public String findCoordsInArray(int[][] arr, int valueToFind) {
     String arrAsString = "{ ";
-    int xCoord = -1;
-    int yCoord = -1;
+    int xCoord = -1; // CheckStyle contradicts with Google Style here
+    int yCoord = -1; // CheckStyle contradicts with Google Style here
     for (int i = 0; i < arr.length; i++) {
       arrAsString += (i != 0) ? ", {" : "{";
       for (int j = 0; j < arr[i].length; j++) {
@@ -273,7 +274,6 @@ public class Engine extends Application {
     System.out.println(findCoordsInArray(arr2d, 6));
 
     primStage.setTitle("Colicchio Integration");
-    Scene scene = new Scene(new BorderPane(root), DEF_WIDTH, DEF_HEIGHT);
 
     input = new InputHandler();
     logicLoop = new GameLogic();
@@ -282,9 +282,10 @@ public class Engine extends Application {
     textDisplay.setTextFill(Color.WHITE);
     textDisplay.setText("Loading...");
     root.getChildren().add(root.getChildren().size(), textDisplay);
-    textDisplay.setLayoutX(DEF_WIDTH / 2 - 200);
-    textDisplay.setLayoutY(DEF_HEIGHT / 8);
-
+    textDisplay.setLayoutX(DEFAULT_WIDTH / 2 - 200);
+    textDisplay.setLayoutY(DEFAULT_HEIGHT / 8);
+    
+    Scene scene = new Scene(new BorderPane(root), DEFAULT_WIDTH, DEFAULT_HEIGHT);
     primStage.setScene(scene);
     primStage.show();
     displayDifficultyOption();

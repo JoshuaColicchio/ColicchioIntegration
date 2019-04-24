@@ -1,8 +1,8 @@
 package ships.player;
 
-import engine.classes.Bullet;
 import engine.Engine;
 import engine.Engine.GameState;
+import engine.classes.Bullet;
 import engine.classes.Pickup;
 import javafx.scene.image.ImageView;
 import ships.baseclasses.GameShip;
@@ -102,6 +102,9 @@ public class Player extends GameShip {
       case 2:
         rateOfFire = 3 * rateOfFire / 4;
         break;
+      default:
+        System.out.println("Somehow, you picked up a non-existant pickup.");
+        break;
     }
     pickup.mark();
   }
@@ -109,18 +112,20 @@ public class Player extends GameShip {
   @Override
   public void update(long now) {
     try {
-      ship.setX((Engine.getInput().getMousePos().X <= (ship.getFitWidth() / 2)) ? 0
-          : (Engine.getInput().getMousePos().X >= Engine.getScene().getWidth()
+      ship.setX((Engine.getInput().getMousePos().getX() <= (ship.getFitWidth() / 2)) ? 0
+          : (Engine.getInput().getMousePos().getX() >= Engine.getScene().getWidth()
               - (ship.getFitWidth() / 2)) ? Engine.getScene().getWidth() - (ship.getFitWidth())
-                  : Engine.getInput().getMousePos().X - ship.getFitWidth() / 2);
+                  : Engine.getInput().getMousePos().getX() - ship.getFitWidth() / 2);
 
-      if (damageTimer + 1000000000 > now)
+      if (damageTimer + 1000000000 > now) {
         super.iv.setOpacity((super.iv.getOpacity() == 0.5) ? 1 : 0.5);
-      else if (damageTimer + 1000000000 < now)
+      } else if (damageTimer + 1000000000 < now) {
         super.iv.setOpacity(1);
+      }
 
-      if (rateOfFire > baseROF)
+      if (rateOfFire > baseROF) {
         rateOfFire--;
+      }
 
     } catch (Exception ex) {
       System.out.println(ex);
@@ -129,8 +134,9 @@ public class Player extends GameShip {
 
   @Override
   public void fire() {
-    if (System.nanoTime() < lastBulletShot + (rateOfFire * (1_000_000_000 / 60)))
+    if (System.nanoTime() < lastBulletShot + (rateOfFire * (1_000_000_000 / 60))) {
       return;
+    }
 
     lastBulletShot = System.nanoTime();
 
@@ -145,10 +151,11 @@ public class Player extends GameShip {
   @Override
   public void onTakeDamage(double dmg) {
     health -= dmg;
-    if (health <= 0)
+    if (health <= 0) {
       onDestroyed();
-    else
+    } else {
       damageTimer = System.nanoTime();
+    }
   }
 
   @Override

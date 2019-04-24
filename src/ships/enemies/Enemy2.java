@@ -1,7 +1,7 @@
 package ships.enemies;
 
-import java.util.Random;
 import engine.Engine;
+import java.util.Random;
 import ships.baseclasses.EnemyShip;
 
 // Joshua Colicchio
@@ -10,9 +10,17 @@ import ships.baseclasses.EnemyShip;
 public class Enemy2 extends EnemyShip {
 
   private final long swayDir;
-  private long pausedTime = 0, offset = 0;
+  private long pausedTime = 0;
+  private long offset = 0;
   private Random rand = new Random();
 
+  /**
+   * Constructor for the Enemy2 class.
+   * 
+   * @param x - X position to spawn the Enemy2 at.
+   * @param y - Y position to spawn the Enemy2 at.
+   * @param healthModifier - Current health modifier (related to player score).
+   */
   public Enemy2(double x, double y, int healthModifier) {
     super("ships/res/enemy2.png", 20 + 10 * healthModifier, 2, 2);
     iv.setFitHeight(80);
@@ -38,11 +46,12 @@ public class Enemy2 extends EnemyShip {
     }
     double adjustedTime = (now - offset) / 1000000000.0;
     double xCoord = 250 + swayDir * 128 * Math.cos(adjustedTime);
+    // CheckStyle disagrees with the Google Style above.
     super.iv.setX(xCoord);
 
-    if (rand.nextInt(100) == 28)
+    if (rand.nextInt(100) == 28) {
       fire();
-
+    }
     super.update(now);
   }
 

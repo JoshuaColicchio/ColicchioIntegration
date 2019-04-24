@@ -1,10 +1,10 @@
 package engine;
 
+import engine.Engine.GameState;
+import engine.utils.Vector2;
 import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Robot;
-import engine.Engine.GameState;
-import engine.utils.Vector2;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -17,8 +17,12 @@ import javafx.scene.input.KeyCode;
 
 public class InputHandler {
 
-  private Vector2 mousePos, pausedMouse;
+  private Vector2 mousePos;
+  private Vector2 pausedMouse;
 
+  /**
+   * Constructor for the InputHandler class. Sets up event listeners.
+   */
   public InputHandler() {
     Engine.getRoot().setOnMouseMoved(event -> {
       mousePos = new Vector2(event.getSceneX(), event.getSceneY());
@@ -47,7 +51,7 @@ public class InputHandler {
           Engine.setGameState(GameState.RUNNING);
           try { // Moves mouse to position prior to pausing (avoid exploiting location)
             Robot robot = new Robot();
-            robot.mouseMove((int) pausedMouse.X, (int) pausedMouse.Y);
+            robot.mouseMove((int) pausedMouse.getX(), (int) pausedMouse.getY());
           } catch (AWTException ex) {
             System.out.println(ex);
           }

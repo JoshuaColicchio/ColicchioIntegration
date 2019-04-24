@@ -10,7 +10,14 @@ import ships.baseclasses.EnemyShip;
 public class Enemy1 extends EnemyShip {
 
   public double[] weaponLocations;
-
+  
+  /**
+   * Constructor for the Enemy1 class.
+   * 
+   * @param x - X coordinate to spawn the Enemy1.
+   * @param y - Y coordinate to spawn the Enemy1.
+   * @param healthModifier - Current health modifier (related to player score).
+   */
   public Enemy1(double x, double y, int healthModifier) {
     super("ships/res/enemy1.png", 20 + 10 * healthModifier, 2, 1);
     iv.setFitHeight(80);

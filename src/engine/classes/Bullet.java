@@ -31,7 +31,7 @@ public class Bullet {
    * @param friend - Whether this bullet was fired by the player or an enemy.
    */
   public Bullet(double dmg, double spd, int size, int typ, double xPos, double yPos,
-      boolean friend) {
+      boolean friend) { // CheckStyle disagrees with the Google Style above.
     baseDmg = dmg;
     type = typ;
     speed = spd;
@@ -48,10 +48,12 @@ public class Bullet {
    * @return javafx.scene.paint.Color
    */
   public Color getColFromType() {
-    if (type == 0)
+    if (type == 0) {
       return Color.CYAN;
-    if (type == 1)
+    }
+    if (type == 1) {
       return Color.RED;
+    }
     return Color.GREEN;
   }
 

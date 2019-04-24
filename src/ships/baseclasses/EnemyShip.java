@@ -74,10 +74,11 @@ public class EnemyShip extends GameShip {
    * set to somewhere on screen.
    */
   public void onSpawn() {
-    if (super.iv.getX() <= super.iv.getFitWidth() / 2)
+    if (super.iv.getX() <= super.iv.getFitWidth() / 2) {
       super.iv.setX(super.iv.getFitWidth() / 2);
-    else if (super.iv.getX() >= Engine.getScene().getWidth() - (super.iv.getFitWidth() / 2))
+    } else if (super.iv.getX() >= Engine.getScene().getWidth() - (super.iv.getFitWidth() / 2)) {
       super.iv.setX(Engine.getScene().getWidth() - (super.iv.getFitWidth() / 2));
+    }
   }
 
   // Inherited methods
@@ -95,10 +96,11 @@ public class EnemyShip extends GameShip {
   @Override
   public void onTakeDamage(double damage) {
     health -= damage;
-    if (health <= 0)
+    if (health <= 0) {
       onDestroyed();
-    else
+    } else {
       damageTimer = System.nanoTime();
+    }
   }
 
   @Override
@@ -110,12 +112,14 @@ public class EnemyShip extends GameShip {
   @Override
   public void update(long now) {
     super.iv.setY(super.iv.getY() + 5);
-    if (super.iv.getY() > Engine.getScene().getHeight())
+    if (super.iv.getY() > Engine.getScene().getHeight()) {
       markedForRemoval = true;
+    }
 
-    if (damageTimer + 1000000000 > now)
+    if (damageTimer + 1000000000 > now) {
       super.iv.setOpacity((super.iv.getOpacity() == 0.5) ? 1 : 0.5);
-    else if (damageTimer + 1000000000 < now)
+    } else if (damageTimer + 1000000000 < now) {
       super.iv.setOpacity(1);
+    }
   }
 }

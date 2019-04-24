@@ -1,12 +1,12 @@
 package engine;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
 import engine.Engine.GameState;
 import engine.classes.Background;
 import engine.classes.Bullet;
 import engine.classes.Pickup;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 import javafx.animation.AnimationTimer;
 import ships.baseclasses.EnemyShip;
 import ships.enemies.Enemy1;
@@ -39,7 +39,8 @@ public class GameLogic {
   private Background bg2 = new Background("engine/res/bg3.png", 1);
   private Background bg3 = new Background("engine/res/bg3.png", 2);
   private Background bg4 = new Background("engine/res/bg3.png", 3);
-  private Background currBG, nextBG;
+  private Background currBG;
+  private Background nextBG;
 
   // Variables relating to enemy management
   private int maxOnScreenEnemies = 5;
@@ -84,8 +85,9 @@ public class GameLogic {
       public void handle(long now) {
         Engine.getRoot().requestFocus();
         if (Engine.getGameState() == GameState.LOADING) {
-          if (Engine.getStartTime() + 1000000000 < now)
+          if (Engine.getStartTime() + 1000000000 < now) {
             startGame();
+          }
         } else if (Engine.getGameState() == GameState.RUNNING) {
           Engine.disableText();
           Engine.updateScore("Score: " + playerScore + "\nHealth: " + (int) player.getHealth());
@@ -94,13 +96,15 @@ public class GameLogic {
           updateEnemies(now);
           updatePickups(now);
           player.update(now);
-          if (playerFiring)
+          if (playerFiring) {
             player.fire();
+          }
         } else if (Engine.getGameState() == GameState.PAUSED) {
           Engine.enableText("Paused");
         } else if (Engine.getGameState() == GameState.GAMEOVER) {
-          if (!cleanedup)
+          if (!cleanedup) {
             cleanup();
+          }
           Engine.enableText("Game over!\nPress any\nbutton to restart");
           stopAnimationTimer();
         }
@@ -183,15 +187,17 @@ public class GameLogic {
     nextBG = currBG;
     while (nextBG == currBG) {
       nextBG = indexOfBG(rand.nextInt(4));
-      continue; // The continue statement in a loop ends execution of the current iteration, and
-                // jumps to the next loop through
+      continue;
+      // The continue statement in a loop ends execution of the current iteration, and jumps to the
+      // next loop through
     }
   }
 
+  // Not sure what CheckStyle is mad about here.
   /**
-   * This method returns the requested background using the provided index.
+   * This method returns the Background at the provided index in the Background ArrayList.
    * 
-   * @param index - Index to get result from [0-3]
+   * @param index - Index of requested Background.
    * @return engine.classes.Background
    */
   public Background indexOfBG(int index) {
@@ -217,13 +223,14 @@ public class GameLogic {
    * sent to storage.
    */
   public void updateBackground() {
-    if (Engine.getGameState() == GameState.GAMEOVER)
+    if (Engine.getGameState() == GameState.GAMEOVER) {
       return;
+    }
 
     try {
-      if (currBG.getIV().getY() + 5 <= 0)
+      if (currBG.getIV().getY() + 5 <= 0) {
         currBG.getIV().setY(currBG.getIV().getY() + 5);
-      else if (currBG.getIV().getY() + 5 <= Engine.getScene().getHeight()) {
+      } else if (currBG.getIV().getY() + 5 <= Engine.getScene().getHeight()) {
         currBG.getIV().setY(currBG.getIV().getY() + 5);
         nextBG.getIV().setY(nextBG.getIV().getY() + 5);
       } else {
@@ -243,15 +250,16 @@ public class GameLogic {
    * @param now - The current time in nanoseconds.
    */
   public void updateEnemies(long now) {
-    if (Engine.getGameState() == GameState.GAMEOVER)
+    if (Engine.getGameState() == GameState.GAMEOVER) {
       return;
+    }
 
     if (onScreenEnemies.size() < maxOnScreenEnemies && now > lastEnemySpawn + enemySpawnRate * 2) {
       lastEnemySpawn = now;
       EnemyShip enemy = null;
       switch (rand.nextInt(2)) {
-        case 0: // Casting in Java is when you want the compiler to treat one variable type as
-                // another
+        case 0:
+          // Casting in Java is when you want the compiler to treat one variable type as another
           // Like below, where I tell Java to treat the Engine.getScene().getWidth() variable, which
           // is a double, as an int.
           enemy = new Enemy1(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50,
@@ -261,9 +269,14 @@ public class GameLogic {
           enemy = new Enemy2(rand.nextInt((int) Engine.getScene().getWidth()) - 50, -50,
               playerScore / 5000);
           break;
+        default:
+          System.out.println("Somehow, the random got outside of its range!");
+          break;
       }
-      onScreenEnemies.add(enemy);
-      Engine.getRoot().getChildren().add(enemy.getImageView());
+      if (enemy != null) {
+        onScreenEnemies.add(enemy);
+        Engine.getRoot().getChildren().add(enemy.getImageView());
+      }
     }
     try {
       for (Iterator<EnemyShip> it = onScreenEnemies.iterator(); it.hasNext();) {
@@ -271,8 +284,9 @@ public class GameLogic {
         if (enemy.markForRemoval()) {
           Engine.getRoot().getChildren().remove(enemy.getImageView());
           it.remove();
-        } else
+        } else {
           enemy.update(now);
+        }
       }
     } catch (Exception ex) {
       // Error expected here during cleanup due to things being deleted while the logic loop is
@@ -292,8 +306,9 @@ public class GameLogic {
       EnemyShip enemy = it.next();
       if (enemy.equals(es)) {
         enShip = enemy;
-        break; // If the if statement evaluates as true, the inner code is executed and the loop
-               // ends prematurely
+        break; 
+        // If the if statement evaluates as true, the inner code is executed and the loop
+        // ends prematurely
       }
     }
     return enShip;
@@ -307,8 +322,9 @@ public class GameLogic {
    * @param now - The current time in nanoseconds.
    */
   public void updatePickups(long now) {
-    if (Engine.getGameState() == GameState.GAMEOVER)
+    if (Engine.getGameState() == GameState.GAMEOVER) {
       return;
+    }
 
     if (onScreenPickups.size() < maxOnScreenPickups && now > lastPickupSpawn + pickupSpawnRate * 15
         && canSpawnPickup == false) {
@@ -331,8 +347,9 @@ public class GameLogic {
             pickup.mark();
             player.onPickup(pickup);
           } else if (pickup.getIcon().getCenterY() > Engine.getScene().getHeight()
-              + pickup.getIcon().getRadius())
+              + pickup.getIcon().getRadius()) {
             pickup.mark();
+          }
         }
       }
     } catch (Exception ex) {
@@ -347,7 +364,8 @@ public class GameLogic {
    * @param xCoord - X Coordinate to spawn the pickup at.
    * @param yCoord - Y Coordinate to spawn the pickup at.
    */
-  public void spawnPickup(double xCoord, double yCoord) {
+  public void spawnPickup(double xCoord, double yCoord) { 
+    // CheckStyle disagrees with the Google Style above.
     int lotto = rand.nextInt(151);
     if (canSpawnPickup && lotto >= 100 && lotto <= 130) {
       Pickup pu = new Pickup(xCoord, yCoord, rand.nextInt(3));
@@ -375,8 +393,9 @@ public class GameLogic {
    * Updates the position of all on screen bullets, and handles collision detection.
    */
   public void updateBullets() {
-    if (Engine.getGameState() == GameState.GAMEOVER)
+    if (Engine.getGameState() == GameState.GAMEOVER) {
       return;
+    }
     try {
       for (Iterator<Bullet> it = onScreenBullets.iterator(); it.hasNext();) {
         Bullet bullet = it.next();
