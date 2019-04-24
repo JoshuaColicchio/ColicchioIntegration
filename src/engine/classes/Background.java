@@ -2,7 +2,6 @@ package engine.classes;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 /**
  * This class is the base for all background images. The backgrounds are used by the game logic loop
