@@ -81,19 +81,23 @@ public class Engine extends Application {
   }
 
   public static void displayDifficultyOption() {
-    difficulty = new TextInputDialog("1(hard) - 100(easy)");
+    difficulty = new TextInputDialog("");
     difficulty
         .setTitle("Hello, and welcome to my integration project!\nPlease select a 'difficulty'");
-    difficulty.setHeaderText("Input your starting health (whole number) (1-100)");
+    difficulty.setHeaderText("Hello, and welcome to my project.\nThis is a sort of Galaga clone"
+        + " (although very simplified)\nThe goal is to destroy the other ships, "
+        + "and to not get yourself destroyed.\nThe more enemies you defeat, the tougher they get!"
+        + "\nChoose your difficulty by entering your starting "
+        + "health below (whole number from 1 to 100)");
     difficulty.setContentText("Starting health: ");
 
     Optional<String> result = difficulty.showAndWait();
     if (!result.isPresent())
       displayDifficultyOption();
     else {
-      result.ifPresent(e -> {
+      result.ifPresent(event -> {
         try {
-          difficultyHealth = Double.parseDouble(e);
+          difficultyHealth = Double.parseDouble(event);
           if (difficultyHealth < 1 || difficultyHealth > 100) {
             displayDifficultyOption();
           } else {
